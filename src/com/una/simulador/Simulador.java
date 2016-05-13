@@ -238,12 +238,10 @@ public class Simulador extends javax.swing.JFrame {
             .addGroup(panelConfigLayout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(sliderTempoRam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(panelConfigLayout.createSequentialGroup()
-                            .addComponent(labelTempoRam)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(labelTempoRam1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelConfigLayout.createSequentialGroup()
+                        .addComponent(labelTempoRam)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelTempoRam1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelConfigLayout.createSequentialGroup()
                         .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(jLabel1)
@@ -259,22 +257,22 @@ public class Simulador extends javax.swing.JFrame {
                                     .addComponent(radioTipoAC)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(radioTipoTA))))
-                        .addGap(20, 20, 20)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                        .addGap(20, 20, 20))
+                    .addComponent(sliderTempoRam, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(sliderTempoCache, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(panelConfigLayout.createSequentialGroup()
-                            .addComponent(labelTempoCache)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(labelTempoCache1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConfigLayout.createSequentialGroup()
+                        .addComponent(labelTempoCache)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelTempoCache1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConfigLayout.createSequentialGroup()
                         .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(labelPalavra)
                             .addComponent(labelBloco))
                         .addGap(54, 54, 54))
                     .addComponent(comboBlocos, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboPalavra, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboPalavra, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sliderTempoCache, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53))
         );
         panelConfigLayout.setVerticalGroup(
@@ -678,14 +676,21 @@ public class Simulador extends javax.swing.JFrame {
 
     private void iniciarLeitura() {
         this.atualizarStatus("-----------\nAtualização de cache\n");
-        for (NumeroBinario binario1 : binario) {
-            endMemoria = (Integer.parseInt(binario1.getNumMap(), 2));
-            blocos[endMemoria].setHistorico(binario1.getNumBin(), binario1.getPalavras());
-            this.atualizarStatus("Binário: " + binario1.getNumBin() + "\tMapeamento: " + binario1.getNumMap());
-            this.atualizarStatus(blocos[endMemoria].toString());
+        if (tipoMemCache == "MD") {
+            for (NumeroBinario binario1 : binario) {
+                endMemoria = (Integer.parseInt(binario1.getNumMap(), 2));
+                blocos[endMemoria].setHistoricoMD(binario1.getNumBin(), binario1.getPalavras());
+                this.atualizarStatus("Binário: " + binario1.getNumBin() + "\tMapeamento: " + binario1.getNumMap());
+                this.atualizarStatus(blocos[endMemoria].toString());
+            }
+        } else if (tipoMemCache == "TA") {
+            
+        } else if (tipoMemCache == "AC") {
+
         }
+
         this.atualizarStatus(blocos[0].toString2());
-        this.atualizarStatus("Tempo médio de acesso: " + Bloco.getTempoMedio(tempoCache,tempoRam));
+        this.atualizarStatus("Tempo médio de acesso: " + Bloco.getTempoMedio(tempoCache, tempoRam));
     }
 
     private void exportarTxt() throws IOException {

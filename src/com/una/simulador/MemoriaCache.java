@@ -15,6 +15,10 @@ public abstract class MemoriaCache {
             endereco = 0, tempoMedio = 0, controleLista = 0, posicaoLista;
     static private String politicaSubs, tipoCache, listaLRU[];
 
+    public MemoriaCache() {
+        MemoriaCache.setEndereco();
+    }
+
     /**
      * @return the politicaSubs
      */
@@ -51,7 +55,6 @@ public abstract class MemoriaCache {
     }
 
     /**
-     * @param aControleLista the controleLista to set
      */
     public static void setControleLista() {
         controleLista++;
@@ -67,7 +70,10 @@ public abstract class MemoriaCache {
     public static String getListaLRU() {
         String lista = "";
         for (String lista1 : listaLRU) {
-            lista += "[" + lista1 + "]";
+            if ("".equals(lista1)) {
+            } else {
+                lista += "[" + lista1 + "]";
+            }
         }
         return lista;
     }
@@ -80,8 +86,11 @@ public abstract class MemoriaCache {
             listaLRU[getControleLista()] = numBin;
             setControleLista();
         } else if (taNaLista(numBin)) {
-            listaLRU[getControleLista()] = listaLRU[posicaoLista];
-            posicaoLista = null;
+            listaLRU[getControleLista()] = numBin;
+            listaLRU[posicaoLista] = "";
+            setControleLista();
+        } else {
+            listaLRU[getControleLista()] = numBin;
             setControleLista();
         }
     }
@@ -109,10 +118,6 @@ public abstract class MemoriaCache {
             }
         }
         return true;
-    }
-
-    public MemoriaCache() {
-        MemoriaCache.setEndereco();
     }
 
     /**
