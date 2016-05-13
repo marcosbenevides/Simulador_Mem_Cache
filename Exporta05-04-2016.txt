@@ -1,0 +1,105 @@
+﻿CONFIGURAÇÃO ESCOLHIDA
+------------------------------------------------------------------
+
+Tipo de Memoria Cache: MD
+
+Tipo de Política de Substituição: MD
+
+Tempo de Acesso a Memória Ram: 100
+
+Tempo de Acesso a Memória Cache: 10
+
+Quantidade de Blocos: 4
+
+Tamanho da Palavra: 2
+
+------------------------------------------------------------------
+
+MEMORY TRACE DIGITADO:
+[12] [15] [22] [1024] [32] 
+------------------------------------------------------------------
+
+Número Decimal:12	Número Binário: 00000001100
+Deslocamento: 0
+Mapeamento: 10
+Tag: 00000001
+-----
+
+Número Decimal:15	Número Binário: 00000001111
+Deslocamento: 1
+Mapeamento: 11
+Tag: 00000001
+-----
+
+Número Decimal:22	Número Binário: 00000010110
+Deslocamento: 0
+Mapeamento: 11
+Tag: 00000010
+-----
+
+Número Decimal:1024	Número Binário: 10000000000
+Deslocamento: 0
+Mapeamento: 00
+Tag: 10000000
+-----
+
+Número Decimal:32	Número Binário: 00000100000
+Deslocamento: 0
+Mapeamento: 00
+Tag: 00000100
+-----
+
+Bloco de memória cache 	Endereço: 1
+Bit Validade: false
+Histórico do bloco: [null][null][null][null][null]
+-----------------------
+
+Bloco de memória cache 	Endereço: 2
+Bit Validade: false
+Histórico do bloco: [null][null][null][null][null]
+-----------------------
+
+Bloco de memória cache 	Endereço: 3
+Bit Validade: false
+Histórico do bloco: [null][null][null][null][null]
+-----------------------
+
+Bloco de memória cache 	Endereço: 4
+Bit Validade: false
+Histórico do bloco: [null][null][null][null][null]
+-----------------------
+
+-----------
+Atualização de cache
+
+Binário: 00000001100	Mapeamento: 10
+Bloco de memória cache 	Endereço: 3
+Bit Validade: true
+Histórico do bloco: [00000001100][null][null][null][null]
+-----------------------
+
+Binário: 00000001111	Mapeamento: 11
+Bloco de memória cache 	Endereço: 4
+Bit Validade: true
+Histórico do bloco: [00000001111][null][null][null][null]
+-----------------------
+
+Binário: 00000010110	Mapeamento: 11
+Bloco de memória cache 	Endereço: 4
+Bit Validade: true
+Histórico do bloco: [00000001111][00000010110][null][null][null]
+-----------------------
+
+Binário: 10000000000	Mapeamento: 00
+Bloco de memória cache 	Endereço: 1
+Bit Validade: true
+Histórico do bloco: [10000000000][null][null][null][null]
+-----------------------
+
+Binário: 00000100000	Mapeamento: 00
+Bloco de memória cache 	Endereço: 1
+Bit Validade: true
+Histórico do bloco: [10000000000][00000100000][null][null][null]
+-----------------------
+
+Hits: 0	Miss Compusórios: 3	Miss: 2

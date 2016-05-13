@@ -1,0 +1,132 @@
+CONFIGURAÇÃO ESCOLHIDA
+------------------------------------------------------------------
+Tipo de Memoria Cache: MD
+Tipo de Política de Substituição: MD
+Tempo de Acesso a Memória Ram: 10
+Tempo de Acesso a Memória Cache: 10
+Quantidade de Blocos: 4
+Tamanho da Palavra: 2
+------------------------------------------------------------------
+MEMORY TRACE DIGITADO:
+[1] [2] [3] [4] [5] [6] [12] [62] 
+------------------------------------------------------------------
+Número Decimal:1	Número Binário: 000001
+Deslocamento: 1
+Mapeamento: 00
+Tag: 000
+-----
+
+Número Decimal:2	Número Binário: 000010
+Deslocamento: 0
+Mapeamento: 01
+Tag: 000
+-----
+
+Número Decimal:3	Número Binário: 000011
+Deslocamento: 1
+Mapeamento: 01
+Tag: 000
+-----
+
+Número Decimal:4	Número Binário: 000100
+Deslocamento: 0
+Mapeamento: 10
+Tag: 000
+-----
+
+Número Decimal:5	Número Binário: 000101
+Deslocamento: 1
+Mapeamento: 10
+Tag: 000
+-----
+
+Número Decimal:6	Número Binário: 000110
+Deslocamento: 0
+Mapeamento: 11
+Tag: 000
+-----
+
+Número Decimal:12	Número Binário: 001100
+Deslocamento: 0
+Mapeamento: 10
+Tag: 001
+-----
+
+Número Decimal:62	Número Binário: 111110
+Deslocamento: 0
+Mapeamento: 11
+Tag: 111
+-----
+
+Bloco de memória cache 	Endereço: 1
+Bit Validade: false
+Histórico do bloco: [null][null][null][null][null][null][null][null]
+-----------------------
+
+Bloco de memória cache 	Endereço: 2
+Bit Validade: false
+Histórico do bloco: [null][null][null][null][null][null][null][null]
+-----------------------
+
+Bloco de memória cache 	Endereço: 3
+Bit Validade: false
+Histórico do bloco: [null][null][null][null][null][null][null][null]
+-----------------------
+
+Bloco de memória cache 	Endereço: 4
+Bit Validade: false
+Histórico do bloco: [null][null][null][null][null][null][null][null]
+-----------------------
+
+-----------
+Atualização de cache
+
+Binário: 000001	Mapeamento: 00
+Bloco de memória cache 	Endereço: 1
+Bit Validade: true
+Histórico do bloco: [000001][null][null][null][null][null][null][null]
+-----------------------
+
+Binário: 000010	Mapeamento: 01
+Bloco de memória cache 	Endereço: 2
+Bit Validade: true
+Histórico do bloco: [000010][null][null][null][null][null][null][null]
+-----------------------
+
+Binário: 000011	Mapeamento: 01
+Bloco de memória cache 	Endereço: 2
+Bit Validade: true
+Histórico do bloco: [000010][000011][null][null][null][null][null][null]
+-----------------------
+
+Binário: 000100	Mapeamento: 10
+Bloco de memória cache 	Endereço: 3
+Bit Validade: true
+Histórico do bloco: [000100][null][null][null][null][null][null][null]
+-----------------------
+
+Binário: 000101	Mapeamento: 10
+Bloco de memória cache 	Endereço: 3
+Bit Validade: true
+Histórico do bloco: [000100][000101][null][null][null][null][null][null]
+-----------------------
+
+Binário: 000110	Mapeamento: 11
+Bloco de memória cache 	Endereço: 4
+Bit Validade: true
+Histórico do bloco: [000110][null][null][null][null][null][null][null]
+-----------------------
+
+Binário: 001100	Mapeamento: 10
+Bloco de memória cache 	Endereço: 3
+Bit Validade: true
+Histórico do bloco: [000100][000101][001100][null][null][null][null][null]
+-----------------------
+
+Binário: 111110	Mapeamento: 11
+Bloco de memória cache 	Endereço: 4
+Bit Validade: true
+Histórico do bloco: [000110][111110][null][null][null][null][null][null]
+-----------------------
+
+Hits: 0	Miss Compusórios: 4	Miss: 4
