@@ -28,7 +28,7 @@ public class Bloco extends MemoriaCache {
         this.setId();
     }
 
-    public void setHistoricoMD(String palavra, String[] p) {
+    public void setHistorico(String palavra, String[] p) {
         if (getBitValidade()) {
             if (eHit(palavra, getContHistorico())) {
                 setHit();
@@ -48,7 +48,7 @@ public class Bloco extends MemoriaCache {
         } else {
             setMissComp();
             setBitValidade((Boolean) true);
-            setHistoricoMD(palavra, p);
+            setHistorico(palavra, p);
         }
     }
     

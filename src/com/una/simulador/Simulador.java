@@ -676,17 +676,33 @@ public class Simulador extends javax.swing.JFrame {
 
     private void iniciarLeitura() {
         this.atualizarStatus("-----------\nAtualização de cache\n");
-        if (tipoMemCache == "MD") {
-            for (NumeroBinario binario1 : binario) {
-                endMemoria = (Integer.parseInt(binario1.getNumMap(), 2));
-                blocos[endMemoria].setHistoricoMD(binario1.getNumBin(), binario1.getPalavras());
-                this.atualizarStatus("Binário: " + binario1.getNumBin() + "\tMapeamento: " + binario1.getNumMap());
-                this.atualizarStatus(blocos[endMemoria].toString());
+        if (null != tipoMemCache) {
+            switch (tipoMemCache) {
+                case "MD":
+                    for (NumeroBinario binario1 : binario) {
+                        endMemoria = (Integer.parseInt(binario1.getNumMap(), 2));
+                        blocos[endMemoria].setHistorico(binario1.getNumBin(), binario1.getPalavras());
+                        this.atualizarStatus("Binário: " + binario1.getNumBin() + "\tMapeamento: " + binario1.getNumMap());
+                        this.atualizarStatus(blocos[endMemoria].toString());
+                    }
+                    break;
+                case "TA":
+                    for (NumeroBinario binario1 : binario) {
+                        for (int i = 0; i > blocos.length; i++) {
+                            blocos[i].setHistorico(binario1.getNumBin(), binario1.getPalavras());
+                            this.atualizarStatus("Binário: " + binario1.getNumBin()
+                                    + "\tMapeamento: " + binario1.getNumMap());
+                            this.atualizarStatus(blocos[endMemoria].toString());
+                            if ("LRU".equals(politicaSubs)) {
+                                Bloco.setListaLRU(binario1.getNumBin());
+                                this.atualizarStatus("Lista: " + Bloco.getListaLRU());
+                            }
+                        }
+                    }
+                    break;
+                case "AC":
+                    break;
             }
-        } else if (tipoMemCache == "TA") {
-            
-        } else if (tipoMemCache == "AC") {
-
         }
 
         this.atualizarStatus(blocos[0].toString2());
