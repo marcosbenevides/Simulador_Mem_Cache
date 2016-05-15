@@ -47,17 +47,32 @@ public class NumeroBinario {
 
         palavras = new String[qntVal];
 
-        /**
-         * chama função que preeche os vetores
-         */
         setTamVet();
-        setNumMap();
-        setNumDesl();
-        setNumTag();
-        setPalavra(this);
-        for (String p : palavras) {
-            System.out.println(p);
+
+        if (qntBlc == 1 || qntVal == 1) {
+            System.err.println("Entrou if Const. NumeroBinario");
+            numMap = new char[1];
+            numMap[0] = '0';
+            numDesl = new char[1];
+            numDesl[0] = '0';
+
+        } else {
+            System.err.println("Entrou else Const. NumeroBinario");
+
+            /**
+             * chama função que preeche os vetores
+             */
+            setTamVet();
+            setNumMap();
+            setNumDesl();
+            setPalavra(this);
+
+//        for (String p : palavras) {
+//            System.out.println(p);
+//        }
         }
+        setNumTag();
+
     }
 
     private void setPalavra(NumeroBinario b) {
@@ -71,13 +86,6 @@ public class NumeroBinario {
         }
     }
 
-//    private void setPalavra(NumeroBinario b) {
-//        Integer posicao = Integer.parseInt(b.getNumDesl(), 2);
-//        Integer raiz = (Integer.parseInt(b.getNumBin(), 2) - posicao);
-//        for (int i = 0; i < getPalavras().length; i++) {
-//            palavras[i] = Integer.toBinaryString(raiz + i);
-//        }
-//    }
     /**
      * Nesta função é feito o preenchimento do vetor definitivo e os campos que
      * sobrar vazio é preenchido com 0
@@ -105,11 +113,16 @@ public class NumeroBinario {
      * (quantidade palavra + quantidade blocos)
      */
     private void setNumTag() {
-        int temp = 0;
-        numTag = new char[(numBin.length) - (log(getQntVal()) + log(getQntBlc()))];
-        for (int i = log(getQntVal()) + log(getQntBlc()); i < numBin.length; i++) {
-            numTag[temp] = numBin[i];
-            temp++;
+        if (qntBlc > 1 || qntVal > 1) {
+            int temp = 0;
+            numTag = new char[(numBin.length) - (log(getQntVal()) + log(getQntBlc()))];
+            for (int i = log(getQntVal()) + log(getQntBlc()); i < numBin.length; i++) {
+                numTag[temp] = numBin[i];
+                temp++;
+            }
+        } else {
+            numTag = new char[numBin.length];
+            System.arraycopy(numBin, 0, numTag, 0, numTag.length);
         }
     }
 
@@ -207,7 +220,11 @@ public class NumeroBinario {
     private String trans(char[] valor) {
         String retorno = "";
         for (int i = valor.length - 1; i >= 0; i--) {
-            retorno += valor[i];
+            try {
+                retorno += valor[i];
+            } catch (NullPointerException ex) {
+                System.err.println("trans\t" + ex);
+            }
         }
         return retorno;
     }

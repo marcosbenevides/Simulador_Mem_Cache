@@ -202,23 +202,23 @@
                       </Group>
                       <Component id="sliderTempoRam" alignment="0" min="-2" pref="234" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="38" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="labelTempoCache" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="labelTempoCache1" min="-2" pref="31" max="-2" attributes="0"/>
                       </Group>
+                      <Component id="comboBlocos" alignment="2" min="-2" max="-2" attributes="0"/>
+                      <Component id="comboPalavra" alignment="2" min="-2" pref="42" max="-2" attributes="0"/>
+                      <Component id="sliderTempoCache" alignment="0" min="-2" pref="251" max="-2" attributes="0"/>
                       <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="2" attributes="0">
-                              <Component id="labelPalavra" alignment="2" min="-2" max="-2" attributes="0"/>
-                              <Component id="labelBloco" alignment="2" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="labelPalavra" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelBloco" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="comboBlocos" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="comboPalavra" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="sliderTempoCache" alignment="0" min="-2" pref="251" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
               </Group>

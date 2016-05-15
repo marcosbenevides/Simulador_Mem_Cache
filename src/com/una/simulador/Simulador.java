@@ -259,20 +259,20 @@ public class Simulador extends javax.swing.JFrame {
                                     .addComponent(radioTipoTA))))
                         .addGap(20, 20, 20))
                     .addComponent(sliderTempoRam, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConfigLayout.createSequentialGroup()
                         .addComponent(labelTempoCache)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelTempoCache1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBlocos, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboPalavra, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(sliderTempoCache, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConfigLayout.createSequentialGroup()
-                        .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                        .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelPalavra)
                             .addComponent(labelBloco))
-                        .addGap(54, 54, 54))
-                    .addComponent(comboBlocos, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboPalavra, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sliderTempoCache, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(54, 54, 54)))
                 .addGap(53, 53, 53))
         );
         panelConfigLayout.setVerticalGroup(
@@ -454,7 +454,7 @@ public class Simulador extends javax.swing.JFrame {
         this.atualizarStatus("Tempo de Acesso a Memória Ram: " + tempoRam);
         this.atualizarStatus("Tempo de Acesso a Memória Cache: " + tempoCache);
         this.atualizarStatus("Quantidade de Blocos: " + quantBlocos);
-        this.atualizarStatus("Tamanho da Palavra: " + quantPalavra);
+        this.atualizarStatus("Tamanho do Bloco: " + quantPalavra);
         this.atualizarStatus("------------------------------------------------------------------");
         this.atualizarStatus("MEMORY TRACE DIGITADO:");
         tratarMemorytrace(editorMemoryTrace.getText());
@@ -482,30 +482,30 @@ public class Simulador extends javax.swing.JFrame {
      * @param evt
      */
     private void radioTipoMDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTipoMDActionPerformed
-        tipoMemCache = radioTipoMD.getActionCommand();
+        tipoMemCache = "MD";
 
         radioSubsFIFO.setEnabled(false);
         radioSubsLRU.setEnabled(false);
     }//GEN-LAST:event_radioTipoMDActionPerformed
 
     private void radioTipoACActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTipoACActionPerformed
-        tipoMemCache = radioTipoAC.getActionCommand();
+        tipoMemCache = "AC";
         radioSubsFIFO.setEnabled(false);
         radioSubsLRU.setEnabled(false);
     }//GEN-LAST:event_radioTipoACActionPerformed
 
     private void radioTipoTAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTipoTAActionPerformed
-        tipoMemCache = radioTipoTA.getActionCommand();
+        tipoMemCache = "TA";
         radioSubsFIFO.setEnabled(true);
         radioSubsLRU.setEnabled(true);
     }//GEN-LAST:event_radioTipoTAActionPerformed
 
     private void radioSubsFIFOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioSubsFIFOActionPerformed
-        politicaSubs = radioSubsFIFO.getActionCommand();
+        politicaSubs = "FIFO";
     }//GEN-LAST:event_radioSubsFIFOActionPerformed
 
     private void radioSubsLRUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioSubsLRUActionPerformed
-        politicaSubs = radioSubsLRU.getActionCommand();
+        politicaSubs = "LRU";
     }//GEN-LAST:event_radioSubsLRUActionPerformed
 
     private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed

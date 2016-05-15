@@ -15,14 +15,14 @@ public class Bloco extends MemoriaCache {
     private String historico[][];
     private Integer id, contHistorico = 0, contPalavra = 0, qntPalavra;
 
-    public Bloco(Integer qntPalavra, String tipoMemoria, String politicaSubs, Integer mT) {
+    public Bloco(Integer mt, String tipoMemoria, String politicaSubs, Integer qntPalavra) {
 
         MemoriaCache.setTipoCache(tipoMemoria);
         MemoriaCache.setPoliticaSubs(politicaSubs);
 
-        Bloco.criarListaLRU(mT * 2);
+        Bloco.criarListaLRU(qntPalavra * 2);
 
-        historico = new String[mT][qntPalavra];
+        historico = new String[qntPalavra][mt];
         bitValidade = false;
         this.qntPalavra = qntPalavra;
         this.setId();
@@ -30,28 +30,30 @@ public class Bloco extends MemoriaCache {
 
     public void setHistorico(String palavra, String[] p) {
         if (getBitValidade()) {
+            System.err.println("Entrou if SetHistorico()");
             if (eHit(palavra, getContHistorico())) {
+                System.err.println("Entrou if-2 SetHistorico()");
                 setHit();
             } else if (qntPalavra > 1) {
+                System.err.println("Entrou else-2 SetHistorico() " + qntPalavra);
                 for (int i = 0; i < p.length; i++) {
                     historico[i][getContHistorico()] = p[i];
                     setMiss();
                 }
                 setContHistorico();
-
             } else {
+                System.err.println("Entrou else-3 SetHistorico()");
                 historico[0][getContHistorico()] = palavra;
                 setContHistorico();
                 setMiss();
             }
-
         } else {
+            System.err.println("Entrou else SetHistorico()");
             setMissComp();
             setBitValidade((Boolean) true);
             setHistorico(palavra, p);
         }
     }
-    
 
     public Boolean eHit(String palavra, Integer numCol) {
         System.out.println(palavra + "\t" + numCol + "\t" + historico.length
