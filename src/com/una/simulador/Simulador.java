@@ -136,7 +136,7 @@ public class Simulador extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulador Memória Cache");
-        setBackground(new java.awt.Color(255, 255, 255));
+        setBackground(new java.awt.Color(0, 0, 0));
         setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(500, 600));
         setName("simuFrame"); // NOI18N
@@ -175,12 +175,19 @@ public class Simulador extends javax.swing.JFrame {
             }
         });
 
+        labelTipo.setBackground(new java.awt.Color(255, 255, 255));
+        labelTipo.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelTipo.setText("Tipo de Memória Cache");
 
+        labelBloco.setBackground(new java.awt.Color(255, 255, 255));
+        labelBloco.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelBloco.setText("Quantidade de Blocos");
 
+        labelPalavra.setBackground(new java.awt.Color(255, 255, 255));
+        labelPalavra.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelPalavra.setText("Tamanho do Bloco");
 
+        botaoMT.setIcon(new javax.swing.ImageIcon("C:\\Users\\marco\\Downloads\\pencils.png")); // NOI18N
         botaoMT.setText("Preencher Memory Trace");
         botaoMT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -188,25 +195,39 @@ public class Simulador extends javax.swing.JFrame {
             }
         });
 
+        sliderTempoRam.setBackground(new java.awt.Color(255, 255, 255));
         sliderTempoRam.setMajorTickSpacing(1);
         sliderTempoRam.setToolTipText("");
         sliderTempoRam.setValue(0);
         sliderTempoRam.setInheritsPopupMenu(true);
 
+        sliderTempoCache.setBackground(new java.awt.Color(255, 255, 255));
         sliderTempoCache.setMajorTickSpacing(1);
         sliderTempoCache.setSnapToTicks(true);
         sliderTempoCache.setValue(0);
 
+        labelTempoRam.setBackground(new java.awt.Color(255, 255, 255));
+        labelTempoRam.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelTempoRam.setText("Tempo de acesso Memoria Ram:");
 
+        labelTempoCache.setBackground(new java.awt.Color(255, 255, 255));
+        labelTempoCache.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         labelTempoCache.setText("Tempo de acesso Memoria Cache:");
+
+        labelTempoRam1.setBackground(new java.awt.Color(255, 255, 255));
+        labelTempoRam1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, sliderTempoRam, org.jdesktop.beansbinding.ELProperty.create("${value}"), labelTempoRam1, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        labelTempoCache1.setBackground(new java.awt.Color(255, 255, 255));
+        labelTempoCache1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, sliderTempoCache, org.jdesktop.beansbinding.ELProperty.create("${value}"), labelTempoCache1, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Política de Substituição");
 
         politicaDeSubstituicao.add(radioSubsFIFO);
@@ -232,48 +253,52 @@ public class Simulador extends javax.swing.JFrame {
         panelConfigLayout.setHorizontalGroup(
             panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelConfigLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(botaoMT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(panelConfigLayout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelConfigLayout.createSequentialGroup()
-                        .addComponent(labelTempoRam)
+                        .addGap(62, 62, 62)
+                        .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                            .addComponent(labelTempoRam)
+                            .addGroup(panelConfigLayout.createSequentialGroup()
+                                .addComponent(radioSubsFIFO)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radioSubsLRU))
+                            .addComponent(jLabel1)
+                            .addGroup(panelConfigLayout.createSequentialGroup()
+                                .addComponent(radioTipoMD)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radioTipoAC)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(radioTipoTA))
+                            .addComponent(labelTipo))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelTempoRam1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panelConfigLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(sliderTempoRam, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelConfigLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                         .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                            .addComponent(jLabel1)
-                            .addGroup(panelConfigLayout.createSequentialGroup()
-                                .addComponent(radioSubsFIFO)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(radioSubsLRU))
-                            .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(labelTipo)
-                                .addGroup(panelConfigLayout.createSequentialGroup()
-                                    .addComponent(radioTipoMD)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(radioTipoAC)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(radioTipoTA))))
-                        .addGap(20, 20, 20))
-                    .addComponent(sliderTempoRam, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                            .addComponent(comboPalavra, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelPalavra)
+                            .addComponent(comboBlocos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelBloco))
+                        .addGap(107, 107, 107))
+                    .addGroup(panelConfigLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(sliderTempoCache, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConfigLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConfigLayout.createSequentialGroup()
                         .addComponent(labelTempoCache)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelTempoCache1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(comboBlocos, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(comboPalavra, javax.swing.GroupLayout.Alignment.CENTER, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(sliderTempoCache, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelTempoCache1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(53, 53, 53))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelConfigLayout.createSequentialGroup()
-                        .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelPalavra)
-                            .addComponent(labelBloco))
-                        .addGap(54, 54, 54)))
-                .addGap(53, 53, 53))
+                        .addComponent(botaoMT, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(136, 136, 136))))
         );
         panelConfigLayout.setVerticalGroup(
             panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,11 +308,10 @@ public class Simulador extends javax.swing.JFrame {
                     .addComponent(labelBloco)
                     .addComponent(labelTipo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(radioTipoMD)
-                        .addComponent(radioTipoAC)
-                        .addComponent(radioTipoTA))
+                .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(radioTipoMD)
+                    .addComponent(radioTipoAC)
+                    .addComponent(radioTipoTA)
                     .addComponent(comboBlocos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -312,11 +336,14 @@ public class Simulador extends javax.swing.JFrame {
                 .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(sliderTempoRam, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sliderTempoCache, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(botaoMT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(4, 4, 4))
+                .addContainerGap())
         );
 
+        panelCommit.setBackground(new java.awt.Color(255, 255, 255));
+
+        botaoExecutar.setIcon(new javax.swing.ImageIcon("C:\\Users\\marco\\Downloads\\play.png")); // NOI18N
         botaoExecutar.setText("Executar");
         botaoExecutar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,6 +351,7 @@ public class Simulador extends javax.swing.JFrame {
             }
         });
 
+        botaoCancelar.setIcon(new javax.swing.ImageIcon("C:\\Users\\marco\\Downloads\\eraser.png")); // NOI18N
         botaoCancelar.setText("Limpar");
         botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -331,6 +359,7 @@ public class Simulador extends javax.swing.JFrame {
             }
         });
 
+        botaoExportar.setIcon(new javax.swing.ImageIcon("C:\\Users\\marco\\Downloads\\export.png")); // NOI18N
         botaoExportar.setText("Exportar para txt");
         botaoExportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -342,24 +371,24 @@ public class Simulador extends javax.swing.JFrame {
         panelCommit.setLayout(panelCommitLayout);
         panelCommitLayout.setHorizontalGroup(
             panelCommitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelCommitLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCommitLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botaoExecutar)
                 .addGap(18, 18, 18)
                 .addComponent(botaoCancelar)
                 .addGap(18, 18, 18)
                 .addComponent(botaoExportar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(101, 101, 101))
         );
         panelCommitLayout.setVerticalGroup(
             panelCommitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCommitLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelCommitLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panelCommitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoExecutar)
                     .addComponent(botaoCancelar)
                     .addComponent(botaoExportar))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panelStatus.setBackground(new java.awt.Color(255, 255, 255));
@@ -384,7 +413,7 @@ public class Simulador extends javax.swing.JFrame {
         );
         panelStatusLayout.setVerticalGroup(
             panelStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+            .addComponent(scrollStatus, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -393,11 +422,10 @@ public class Simulador extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(panelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panelCommit, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(panelConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelCommit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
