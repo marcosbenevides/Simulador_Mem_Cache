@@ -56,6 +56,18 @@ public class Simulador extends javax.swing.JFrame {
         editorMemoryTrace = new javax.swing.JEditorPane();
         labelMemoryTrace = new javax.swing.JLabel();
         botaoGravarMT = new javax.swing.JButton();
+        sobre = new javax.swing.JDialog();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         panelConfig = new javax.swing.JPanel();
         comboBlocos = new javax.swing.JComboBox();
         comboPalavra = new javax.swing.JComboBox();
@@ -137,6 +149,95 @@ public class Simulador extends javax.swing.JFrame {
 
         frameMemoryTrace.getAccessibleContext().setAccessibleDescription("");
         frameMemoryTrace.getAccessibleContext().setAccessibleParent(this);
+
+        sobre.setMaximumSize(new java.awt.Dimension(400, 300));
+        sobre.setMinimumSize(new java.awt.Dimension(400, 300));
+        sobre.setResizable(false);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Sobre:");
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(10);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Trabalho do curso de Arquitetura de Computadores \nque simula o funcionamento \ndo processamento de algumas instruções pelo \nprocessador utiliando a memória cache.");
+        jTextArea1.setBorder(null);
+        jTextArea1.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        jTextArea1.setEnabled(false);
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel5.setText("Curso: Engenharia de Computação");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel6.setText("1/2016");
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel7.setText("Criadores/Alunos:");
+
+        jLabel8.setText("Marcos Pereira Benevides");
+
+        jLabel9.setText("Mike de Oliveira Frade");
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setText("GitHub:");
+
+        jTextField1.setEditable(false);
+        jTextField1.setText("https://github.com/marcosbenevides/Simulador_Mem_Cache");
+
+        javax.swing.GroupLayout sobreLayout = new javax.swing.GroupLayout(sobre.getContentPane());
+        sobre.getContentPane().setLayout(sobreLayout);
+        sobreLayout.setHorizontalGroup(
+            sobreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sobreLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(sobreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sobreLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jScrollPane1))
+                    .addGroup(sobreLayout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 335, Short.MAX_VALUE))
+                    .addGroup(sobreLayout.createSequentialGroup()
+                        .addGroup(sobreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(sobreLayout.createSequentialGroup()
+                                .addGroup(sobreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9))
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel6)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        sobreLayout.setVerticalGroup(
+            sobreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sobreLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(sobreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(sobreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(35, Short.MAX_VALUE))
+        );
+
+        jLabel4.setText("jLabel4");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulador Memória Cache");
@@ -325,6 +426,7 @@ public class Simulador extends javax.swing.JFrame {
 
         panelCommit.setBackground(getBackground());
 
+        botaoExecutar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/play.png"))); // NOI18N
         botaoExecutar.setText("Executar");
         botaoExecutar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -332,6 +434,7 @@ public class Simulador extends javax.swing.JFrame {
             }
         });
 
+        botaoCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eraser.png"))); // NOI18N
         botaoCancelar.setText("Limpar");
         botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -339,6 +442,7 @@ public class Simulador extends javax.swing.JFrame {
             }
         });
 
+        botaoExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/export.png"))); // NOI18N
         botaoExportar.setText("Exportar para txt");
         botaoExportar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -346,6 +450,7 @@ public class Simulador extends javax.swing.JFrame {
             }
         });
 
+        botaoMT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/file.png"))); // NOI18N
         botaoMT.setText("Preencher Memory Trace");
         botaoMT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -401,7 +506,7 @@ public class Simulador extends javax.swing.JFrame {
             .addGroup(panelStatusLayout.createSequentialGroup()
                 .addComponent(scrollStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 2, Short.MAX_VALUE))
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelStatusLayout.setVerticalGroup(
             panelStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,6 +521,11 @@ public class Simulador extends javax.swing.JFrame {
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, java.awt.event.InputEvent.ALT_MASK));
         jMenuItem1.setText("Sobre");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem1);
 
         jMenuBar1.add(jMenu1);
@@ -560,6 +670,11 @@ public class Simulador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_botaoExportarActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        sobre.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -606,10 +721,21 @@ public class Simulador extends javax.swing.JFrame {
     private javax.swing.JEditorPane editorMemoryTrace;
     private javax.swing.JFrame frameMemoryTrace;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labelBloco;
     private javax.swing.JLabel labelMemoryTrace;
     private javax.swing.JLabel labelPalavra;
@@ -631,6 +757,7 @@ public class Simulador extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollStatus;
     private javax.swing.JSlider sliderTempoCache;
     private javax.swing.JSlider sliderTempoRam;
+    private javax.swing.JDialog sobre;
     private javax.swing.JTextArea textStatus;
     private javax.swing.ButtonGroup tiposMemoriaCache;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
