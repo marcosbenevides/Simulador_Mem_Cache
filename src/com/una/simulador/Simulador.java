@@ -358,7 +358,7 @@ public class Simulador extends javax.swing.JFrame {
         panelCommitLayout.setHorizontalGroup(
             panelCommitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCommitLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(35, 35, 35)
                 .addComponent(botaoMT, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(botaoExecutar)
@@ -366,7 +366,7 @@ public class Simulador extends javax.swing.JFrame {
                 .addComponent(botaoCancelar)
                 .addGap(18, 18, 18)
                 .addComponent(botaoExportar)
-                .addGap(56, 56, 56))
+                .addGap(35, 35, 35))
         );
         panelCommitLayout.setVerticalGroup(
             panelCommitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

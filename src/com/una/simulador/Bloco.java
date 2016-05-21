@@ -20,7 +20,7 @@ public class Bloco extends MemoriaCache {
         MemoriaCache.setTipoCache(tipoMemoria);
         MemoriaCache.setPoliticaSubs(politicaSubs);
 
-        Bloco.criarListaLRU(qntPalavra * 2);
+        Bloco.criarListaLRU(mt * 2);
 
         historico = new String[qntPalavra][mt];
         bitValidade = false;
@@ -66,7 +66,6 @@ public class Bloco extends MemoriaCache {
                 return false;
             }else
                 for (int i = 0; i < 1; i++) {
-     //           for (int j = numCol; j < numCol+1; j++) {
                     if (historico[i][numCol-1] == null) {
                         return false;
                     } else if (historico[i][numCol-1].isEmpty()) {
@@ -79,7 +78,6 @@ public class Bloco extends MemoriaCache {
                         }
 
                     }
-                //}
             }
 
         }

@@ -5,27 +5,29 @@
  */
 package com.una.teste;
 
-import com.una.simulador.NumeroBinario;
-
-
 /**
  *
  * @author Henrique Gallis
  */
 public class TesteMain {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        
-        String[] t = new String[2];
-        t[0] = "";
-        if(t[0].isEmpty()){
-            System.err.println("Nulo é vazio");
-        }else{
-            System.err.println("Deu ruim");
-        }
-    }
+    listaLRU lista = new listaLRU();
+    lista.listaLRU = new Integer[4];
+    
+    lista.setLista(1);
+    lista.getLista();
+    lista.setLista(2);
+    lista.getLista();
+    lista.setLista(3);
+    lista.getLista();
+    lista.setLista(4);
+    lista.getLista();
+    
+    
+    
+    lista.setLista(5);
+    lista.getLista();
 
+}
 }

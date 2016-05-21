@@ -12,7 +12,7 @@ package com.una.simulador;
 public abstract class MemoriaCache {
 
     static private Integer hit = 0, missComp = 0, miss = 0,
-            endereco = 0, tempoMedio = 0, controleLista = 0, posicaoLista;
+            endereco = 0, tempoMedio = 0, controleLista = 0, naLista;
     static private String politicaSubs, tipoCache, listaLRU[];
 
     public MemoriaCache() {
@@ -78,34 +78,7 @@ public abstract class MemoriaCache {
         return lista;
     }
 
-    /**
-     * @param numBin
-     */
-    public static void setListaLRU(String numBin) {
-        if (getControleLista().equals(0)) {
-            listaLRU[getControleLista()] = numBin;
-            setControleLista();
-        } else if (taNaLista(numBin)) {
-            listaLRU[getControleLista()] = numBin;
-            listaLRU[posicaoLista] = "";
-            setControleLista();
-        } else {
-            listaLRU[getControleLista()] = numBin;
-            setControleLista();
-        }
-    }
-
-    private static boolean taNaLista(String numBin) {
-        for (int i = 0; i < getControleLista(); i++) {
-            if (listaLRU[i].equalsIgnoreCase(numBin)) {
-                posicaoLista = i;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean eListaLRUVazia() {
+    public static boolean eListaLRUVazia() {
         for (String listaLRU1 : listaLRU) {
             try {
                 if (listaLRU1 == null || listaLRU1.isEmpty()) {
@@ -118,6 +91,46 @@ public abstract class MemoriaCache {
             }
         }
         return true;
+    }
+
+    public static boolean taNaLista(String valor) {
+        for (int i = 0; i < listaLRU.length; i++) {
+            try {
+                if (listaLRU[i].equals(valor)) {
+                    naLista = i;
+                    return true;
+                }
+            } catch (NullPointerException ex) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+    public static void setListaLRU(String valor) {
+        if (taNaLista(valor)) {
+            int i = naLista;
+            int x = i + 1;
+            for (i = naLista; i < controleLista - 1; i++) {
+                listaLRU[i] = listaLRU[x];
+            }
+            listaLRU[controleLista - 1] = valor;
+        } else {
+            if (controleLista == listaLRU.length) {
+                int i = 0, j = i + 1;
+                for (i = 0; i < controleLista - 1; i++) {
+                    System.err.println("for\t " + listaLRU[i] + "\t" + listaLRU[j] + "\n" + getListaLRU());
+                    listaLRU[i] = listaLRU[j];
+                    j++;
+
+                }
+                listaLRU[controleLista - 1] = valor;
+            } else {
+                listaLRU[controleLista] = valor;
+                controleLista++;
+            }
+
+        }
     }
 
     /**
