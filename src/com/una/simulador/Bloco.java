@@ -37,6 +37,7 @@ public class Bloco extends MemoriaCache {
             } else if (qntPalavra > 1) {
                 System.err.println("Entrou else-2 SetHistorico() " + qntPalavra);
                 for (int i = 0; i < p.length; i++) {
+                    System.err.println("Entrou else-2 SetHistorico() " + qntPalavra);
                     historico[i][getContHistorico()] = p[i];
                     setMiss();
                 }
@@ -61,22 +62,24 @@ public class Bloco extends MemoriaCache {
         if (!getBitValidade()) {
             return false;
         } else {
-
-            for (int i = 0; i < 1; i++) {
-                for (int j = 0; j <= numCol; j++) {
-                    if (historico[i][j] == null) {
+            if(numCol == 0){
+                return false;
+            }else
+                for (int i = 0; i < 1; i++) {
+     //           for (int j = numCol; j < numCol+1; j++) {
+                    if (historico[i][numCol-1] == null) {
                         return false;
-                    } else if (historico[i][j].isEmpty()) {
+                    } else if (historico[i][numCol-1].isEmpty()) {
                         return false;
                     } else {
                         for (int x = i; x < historico.length; x++) {
-                            if (historico[x][j].equalsIgnoreCase(palavra)) {
+                            if (historico[x][numCol-1].equalsIgnoreCase(palavra)) {
                                 return true;
                             }
                         }
 
                     }
-                }
+                //}
             }
 
         }

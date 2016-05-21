@@ -51,11 +51,23 @@ public class NumeroBinario {
 
         if (qntBlc == 1 || qntVal == 1) {
             System.err.println("Entrou if Const. NumeroBinario");
-            numMap = new char[1];
-            numMap[0] = '0';
-            numDesl = new char[1];
-            numDesl[0] = '0';
-
+            if (qntVal > 1) {
+                setNumDesl();
+                numMap = new char[1];
+                numMap[0] = '0';
+                setPalavra(this);
+            } else if (qntBlc > 1) {
+                System.err.println("Entrou else if Const. NumeroBinario");
+                setNumMap();
+                System.err.println("NumMap: " + getNumMap());
+                numDesl = new char[1];
+                numDesl[0] = '0';
+            } else if (qntVal == 1 && qntBlc == 1) {
+                numMap = new char[1];
+                numMap[0] = '0';
+                numDesl = new char[1];
+                numDesl[0] = '0';
+            }
         } else {
             System.err.println("Entrou else Const. NumeroBinario");
 
@@ -71,7 +83,9 @@ public class NumeroBinario {
 //            System.out.println(p);
 //        }
         }
+        System.err.println("Entrou setNumTag() NumeroBinario");
         setNumTag();
+        System.err.println("NumTag: " + getNumTag());
 
     }
 
@@ -151,13 +165,24 @@ public class NumeroBinario {
      */
     private void setNumMap() {
         numMap = new char[log(getQntBlc())];
+        System.err.println("Tamanho numMap: " + numMap.length);
         int mN = 0;
+        if(log(getQntVal()) == mN){
+            try{
+                for(int i=0;i<numMap.length;i++){
+                    numMap[i] = numBin[i];
+                }
+            }catch(ArrayIndexOutOfBoundsException ex){
+                
+            }
+        }
         try {
             for (int i = log(getQntVal()); i > mN; i++) {
                 numMap[mN] = numBin[i];
                 mN++;
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
+            
         }
     }
 
