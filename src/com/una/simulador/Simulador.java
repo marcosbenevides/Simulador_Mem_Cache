@@ -613,10 +613,10 @@ public class Simulador extends javax.swing.JFrame {
         for (NumeroBinario binario1 : binario) {
             this.atualizarStatus(binario1.toString());
         }
-        
+
         //cria os blocos de memória
         criarMemoriaCache();
-        
+
         //Mostra na área de status as informações sobre os blocos criados
         for (Bloco bloco : blocos) {
             this.atualizarStatus(bloco.toString());
@@ -846,7 +846,7 @@ public class Simulador extends javax.swing.JFrame {
     }
 
     private void iniciarLeitura() {
-        this.atualizarStatus("Atualização de cache\n");
+        this.atualizarStatus("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nAtualização de cache\n");
         if (null != tipoMemCache) {
             switch (tipoMemCache) {
                 case "MD":
@@ -859,23 +859,21 @@ public class Simulador extends javax.swing.JFrame {
                     break;
                 case "TA":
                     System.err.println("Entrou case TA");
-                    for (NumeroBinario binario1 : binario) {
-                        System.err.println("Entrou 1º for TA");
-                        for (int i = 0; i < blocos.length; i++) {
-                            System.err.println("Entrou 2º for TA");
-                            blocos[i].setHistorico(binario1.getNumBin(), binario1.getPalavras());
-                            System.err.println(binario1.getNumBin() + "" + binario1.getNumDec());
-                            this.atualizarStatus("Binário: " + binario1.getNumBin()
-                                    + "\tMapeamento: " + binario1.getNumMap());
-                            this.atualizarStatus(blocos[i].toString());
-                            if ("LRU".equals(politicaSubs)) {
-                                System.err.println("Entrou if LRU");
-                                Bloco.setListaLRU(binario1.getNumBin());
-                                this.atualizarStatus("Lista LRU: " + Bloco.getListaLRU() + 
-                                        "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
-                            }else{
-                                System.err.println("Entrou else LRU");
-                            }
+                    for (int i = 0; i < blocos.length; i++) {
+                        System.err.println("Entrou 2º for TA");
+                        blocos[i].setHistorico(binario[i].getNumBin(), binario[i].getPalavras());
+                        System.err.println(binario[i].getNumBin() + "" + binario[i].getNumDec());
+
+                        this.atualizarStatus("Binário: " + binario[i].getNumBin()
+                                + "\tMapeamento: " + binario[i].getNumMap());
+                        this.atualizarStatus(blocos[i].toString());
+                        if ("LRU".equals(politicaSubs)) {
+                            System.err.println("Entrou if LRU");
+                            Bloco.setListaLRU(binario[i].getNumBin());
+                            this.atualizarStatus("Lista LRU: " + Bloco.getListaLRU()
+                                    + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        } else {
+                            System.err.println("Entrou else LRU");
                         }
                     }
                     break;
@@ -884,7 +882,7 @@ public class Simulador extends javax.swing.JFrame {
             }
         }
 
-        this.atualizarStatus(blocos[0].toString2());
+        this.atualizarStatus("\n\n" + blocos[0].toString2());
         this.atualizarStatus("Tempo médio de acesso: " + Bloco.getTempoMedio(tempoCache, tempoRam));
     }
 
