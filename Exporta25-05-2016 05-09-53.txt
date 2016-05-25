@@ -1,0 +1,143 @@
+CONFIGURAÇÃO ESCOLHIDA
+------------------------------------------------------------------
+Tipo de Memoria Cache: TA
+Tipo de Política de Substituição: LRU
+Tempo de Acesso a Memória Ram: 0
+Tempo de Acesso a Memória Cache: 0
+Quantidade de Blocos: 2
+Tamanho do Bloco: 1
+------------------------------------------------------------------
+MEMORY TRACE DIGITADO:
+[1] [2] [3] [4] 
+------------------------------------------------------------------
+Número Decimal:1	Número Binário: 001
+Deslocamento: 0
+Mapeamento: 1
+Tag: 00
+-----
+
+Número Decimal:2	Número Binário: 010
+Deslocamento: 0
+Mapeamento: 0
+Tag: 01
+-----
+
+Número Decimal:3	Número Binário: 011
+Deslocamento: 0
+Mapeamento: 1
+Tag: 01
+-----
+
+Número Decimal:4	Número Binário: 100
+Deslocamento: 0
+Mapeamento: 0
+Tag: 10
+-----
+
+Bloco de memória cache 	Endereço: 1
+Bit Validade: false
+Histórico do bloco:
+[null][null][null][null]
+
+-----------------------
+Bloco de memória cache 	Endereço: 2
+Bit Validade: false
+Histórico do bloco:
+[null][null][null][null]
+
+-----------------------
+Atualização de cache
+
+Binário: 001	Mapeamento: 1
+Bloco de memória cache 	Endereço: 1
+Bit Validade: true
+Histórico do bloco:
+[001][null][null][null]
+
+-----------------------
+Lista LRU: [001][null]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Binário: 001	Mapeamento: 1
+Bloco de memória cache 	Endereço: 2
+Bit Validade: true
+Histórico do bloco:
+[001][null][null][null]
+
+-----------------------
+Lista LRU: [001][null]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Binário: 010	Mapeamento: 0
+Bloco de memória cache 	Endereço: 1
+Bit Validade: true
+Histórico do bloco:
+[001][010][null][null]
+
+-----------------------
+Lista LRU: [001][010]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Binário: 010	Mapeamento: 0
+Bloco de memória cache 	Endereço: 2
+Bit Validade: true
+Histórico do bloco:
+[001][010][null][null]
+
+-----------------------
+Lista LRU: [001][010]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Binário: 011	Mapeamento: 1
+Bloco de memória cache 	Endereço: 1
+Bit Validade: true
+Histórico do bloco:
+[001][010][011][null]
+
+-----------------------
+Lista LRU: [010][011]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Binário: 011	Mapeamento: 1
+Bloco de memória cache 	Endereço: 2
+Bit Validade: true
+Histórico do bloco:
+[001][010][011][null]
+
+-----------------------
+Lista LRU: [010][011]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Binário: 100	Mapeamento: 0
+Bloco de memória cache 	Endereço: 1
+Bit Validade: true
+Histórico do bloco:
+[001][010][011][100]
+
+-----------------------
+Lista LRU: [011][100]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Binário: 100	Mapeamento: 0
+Bloco de memória cache 	Endereço: 2
+Bit Validade: true
+Histórico do bloco:
+[001][010][011][100]
+
+-----------------------
+Lista LRU: [011][100]
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+Hits: 0	Miss Compusórios: 2	Miss: 8
+Tempo médio de acesso: 0

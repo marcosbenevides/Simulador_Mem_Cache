@@ -15,12 +15,12 @@ public class Bloco extends MemoriaCache {
     private String historico[][];
     private Integer id, contHistorico = 0, contPalavra = 0, qntPalavra;
 
-    public Bloco(Integer mt, String tipoMemoria, String politicaSubs, Integer qntPalavra) {
+    public Bloco(Integer mt, String tipoMemoria, String politicaSubs, Integer qntPalavra, Integer qntBlocos) {
 
         MemoriaCache.setTipoCache(tipoMemoria);
         MemoriaCache.setPoliticaSubs(politicaSubs);
 
-        Bloco.criarListaLRU(mt * 2);
+        Bloco.criarListaLRU(qntBlocos);
 
         historico = new String[qntPalavra][mt];
         bitValidade = false;
@@ -163,8 +163,8 @@ public class Bloco extends MemoriaCache {
     @Override
     public String toString() {
         return "Bloco de memória cache \tEndereço: " + this.getId()
-                + "\nBit Validade: " + getBitValidade() + "\nHistórico do bloco:\n"
-                + getHistorico() + "\n-----------------------\n";
+                + "\nBit Validade: " + getBitValidade() + "\nHistórico do bloco:"
+                + getHistorico() + "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";
     }
 
     public String toString2() {

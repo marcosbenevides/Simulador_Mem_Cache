@@ -613,12 +613,16 @@ public class Simulador extends javax.swing.JFrame {
         for (NumeroBinario binario1 : binario) {
             this.atualizarStatus(binario1.toString());
         }
-
+        
+        //cria os blocos de memória
         criarMemoriaCache();
+        
+        //Mostra na área de status as informações sobre os blocos criados
         for (Bloco bloco : blocos) {
             this.atualizarStatus(bloco.toString());
         }
 
+        //Começa a manipulação dos dados e leitura do MT para inserção nos blocos
         iniciarLeitura();
     }//GEN-LAST:event_botaoExecutarActionPerformed
 
@@ -836,13 +840,13 @@ public class Simulador extends javax.swing.JFrame {
 
         blocos = new Bloco[quantBlocos];
         for (int i = 0; i < blocos.length; i++) {
-            blocos[i] = new Bloco(mT.length, tipoMemCache, politicaSubs, quantPalavra);
+            blocos[i] = new Bloco(mT.length, tipoMemCache, politicaSubs, quantPalavra, quantBlocos);
         }
 
     }
 
     private void iniciarLeitura() {
-        this.atualizarStatus("-----------\nAtualização de cache\n");
+        this.atualizarStatus("Atualização de cache\n");
         if (null != tipoMemCache) {
             switch (tipoMemCache) {
                 case "MD":
@@ -854,15 +858,23 @@ public class Simulador extends javax.swing.JFrame {
                     }
                     break;
                 case "TA":
+                    System.err.println("Entrou case TA");
                     for (NumeroBinario binario1 : binario) {
-                        for (int i = 0; i > blocos.length; i++) {
+                        System.err.println("Entrou 1º for TA");
+                        for (int i = 0; i < blocos.length; i++) {
+                            System.err.println("Entrou 2º for TA");
                             blocos[i].setHistorico(binario1.getNumBin(), binario1.getPalavras());
+                            System.err.println(binario1.getNumBin() + "" + binario1.getNumDec());
                             this.atualizarStatus("Binário: " + binario1.getNumBin()
                                     + "\tMapeamento: " + binario1.getNumMap());
-                            this.atualizarStatus(blocos[endMemoria].toString());
+                            this.atualizarStatus(blocos[i].toString());
                             if ("LRU".equals(politicaSubs)) {
+                                System.err.println("Entrou if LRU");
                                 Bloco.setListaLRU(binario1.getNumBin());
-                                this.atualizarStatus("Lista: " + Bloco.getListaLRU());
+                                this.atualizarStatus("Lista LRU: " + Bloco.getListaLRU() + 
+                                        "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n");
+                            }else{
+                                System.err.println("Entrou else LRU");
                             }
                         }
                     }
