@@ -28,7 +28,7 @@ public class Simulador extends javax.swing.JFrame {
     //Vetor de blocos de memória
     private Bloco[] blocos;
     //Variáveis para captura de dados do cliente
-    private Integer tempoRam, tempoCache, quantBlocos, quantPalavra, endMemoria;
+    private static Integer tempoRam, tempoCache, quantBlocos, quantPalavra, endMemoria, controleBloco = 0;
     //Variáveis para captura de dados do cliente
     private String tipoMemCache, politicaSubs;
 
@@ -150,7 +150,6 @@ public class Simulador extends javax.swing.JFrame {
         frameMemoryTrace.getAccessibleContext().setAccessibleDescription("");
         frameMemoryTrace.getAccessibleContext().setAccessibleParent(this);
 
-        sobre.setMaximumSize(new java.awt.Dimension(400, 300));
         sobre.setMinimumSize(new java.awt.Dimension(400, 300));
         sobre.setResizable(false);
 
@@ -859,22 +858,22 @@ public class Simulador extends javax.swing.JFrame {
                     break;
                 case "TA":
                     System.err.println("Entrou case TA");
-                    for (int i = 0; i < blocos.length; i++) {
-                        System.err.println("Entrou 2º for TA");
-                        blocos[i].setHistorico(binario[i].getNumBin(), binario[i].getPalavras());
+                    for (int i = 0; i < mT.length; i++) {
+                        System.err.println("Entrou 1º for TA");
+                        blocos[validaControleBloco()].setHistorico(binario[i].getNumBin(), binario[i].getPalavras());
                         System.err.println(binario[i].getNumBin() + "" + binario[i].getNumDec());
-
                         this.atualizarStatus("Binário: " + binario[i].getNumBin()
                                 + "\tMapeamento: " + binario[i].getNumMap());
-                        this.atualizarStatus(blocos[i].toString());
+                        this.atualizarStatus(blocos[validaControleBloco()].toString());
                         if ("LRU".equals(politicaSubs)) {
                             System.err.println("Entrou if LRU");
-                            Bloco.setListaLRU(binario[i].getNumBin());
+                            Bloco.setListaLRU(binario[i].getNumBin(), binario[i].getPalavras());
                             this.atualizarStatus("Lista LRU: " + Bloco.getListaLRU()
                                     + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                         } else {
                             System.err.println("Entrou else LRU");
                         }
+                        controleBloco++;
                     }
                     break;
                 case "AC":
@@ -884,6 +883,17 @@ public class Simulador extends javax.swing.JFrame {
 
         this.atualizarStatus("\n\n" + blocos[0].toString2());
         this.atualizarStatus("Tempo médio de acesso: " + Bloco.getTempoMedio(tempoCache, tempoRam));
+    }
+
+    private Integer validaControleBloco() {
+        if (controleBloco < blocos.length) {
+            System.err.println("Entrou if ControleBlocos: " + controleBloco);
+            return controleBloco;
+        } else {
+            System.err.println("Entrou else ControleBlocos 0: " + controleBloco);
+            controleBloco = 0;
+            return controleBloco;
+        }
     }
 
     private void exportarTxt() throws IOException {

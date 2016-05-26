@@ -13,7 +13,7 @@ public abstract class MemoriaCache {
 
     static private Integer hit = 0, missComp = 0, miss = 0,
             endereco = 0, tempoMedio = 0, controleLista = 0, naLista;
-    static private String politicaSubs, tipoCache, listaLRU[];
+    static private String politicaSubs, tipoCache, listaLRU[][];
 
     public MemoriaCache() {
         MemoriaCache.setEndereco();
@@ -60,8 +60,8 @@ public abstract class MemoriaCache {
         controleLista++;
     }
 
-    public static void criarListaLRU(Integer valor) {
-        listaLRU = new String[valor];
+    public static void criarListaLRU(Integer colunas, Integer linhas) {
+        listaLRU = new String[colunas][linhas];
     }
 
     /**
@@ -69,25 +69,30 @@ public abstract class MemoriaCache {
      */
     public static String getListaLRU() {
         String lista = "";
-        for (String lista1 : listaLRU) {
-            if ("".equals(lista1)) {
-            } else {
-                lista += "[" + lista1 + "]";
+        for (String[] lista1 : listaLRU) {
+            for (String[] lista11 : listaLRU) {
+                if ("".equals(lista11)) {
+                } else {
+                    lista += "[" + lista11 + "]";
+                }
             }
+
         }
         return lista;
     }
 
     public static boolean eListaLRUVazia() {
-        for (String listaLRU1 : listaLRU) {
-            try {
-                if (listaLRU1 == null || listaLRU1.isEmpty()) {
-                    System.out.println("-- vazio --");
-                } else {
-                    return false;
+        for (String[] lista1 : listaLRU) {
+            for (String[] lista11 : listaLRU) {
+                try {
+                    if (lista11 == null || lista11.equals("")) {
+                        System.out.println("-- vazio --");
+                    } else {
+                        return false;
+                    }
+                } catch (NullPointerException ex) {
+                    System.err.println("Erro eListaLRUVazia " + ex);
                 }
-            } catch (NullPointerException ex) {
-                System.err.println("Erro eListaLRUVazia " + ex);
             }
         }
         return true;
@@ -95,38 +100,49 @@ public abstract class MemoriaCache {
 
     public static boolean taNaLista(String valor) {
         for (int i = 0; i < listaLRU.length; i++) {
-            try {
-                if (listaLRU[i].equals(valor)) {
-                    naLista = i;
-                    return true;
+            for (int j = 0; j < listaLRU[i].length; j++) {
+                try {
+                    if (listaLRU[i][j].equals(valor)) {
+                        naLista = i;
+                        return true;
+                    }
+                } catch (NullPointerException ex) {
+                    return false;
                 }
-            } catch (NullPointerException ex) {
-                return false;
             }
         }
         return false;
     }
 
-    public static void setListaLRU(String valor) {
+    public static void setListaLRU(String valor, String[] palavras) {
         if (taNaLista(valor)) {
             int i = naLista;
             int x = i + 1;
             for (i = naLista; i < controleLista - 1; i++) {
-                listaLRU[i] = listaLRU[x];
+                for (int j = 0; j < listaLRU[i].length; j++) {
+                    listaLRU[i][j] = listaLRU[x][j];
+                }
             }
-            listaLRU[controleLista - 1] = valor;
+            for (int j = 0; j < listaLRU[controleLista - 1].length; j++) {
+                listaLRU[controleLista - 1][j] = palavras[j];
+            }
         } else {
             if (controleLista == listaLRU.length) {
-                int i = 0, j = i + 1;
+                int i = 0, x = i + 1;
                 for (i = 0; i < controleLista - 1; i++) {
-                    System.err.println("for\t " + listaLRU[i] + "\t" + listaLRU[j] + "\n" + getListaLRU());
-                    listaLRU[i] = listaLRU[j];
-                    j++;
-
+                    for (int j = 0; j < listaLRU[i].length; j++) {
+                        System.err.println("for\t " + listaLRU[i][j] + "\t" + listaLRU[x][j] + "\n" + getListaLRU());
+                        listaLRU[i][j] = listaLRU[x][j];
+                        x++;
+                    }
                 }
-                listaLRU[controleLista - 1] = valor;
+                for (int j = 0; j < listaLRU[controleLista - 1].length; j++) {
+                    listaLRU[controleLista - 1][j] = palavras[j];
+                }
             } else {
-                listaLRU[controleLista] = valor;
+                for (int j = 0; j < listaLRU[controleLista].length; j++) {
+                    listaLRU[controleLista][j] = palavras[j];
+                }
                 controleLista++;
             }
 

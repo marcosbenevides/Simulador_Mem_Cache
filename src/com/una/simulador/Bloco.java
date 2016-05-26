@@ -20,7 +20,7 @@ public class Bloco extends MemoriaCache {
         MemoriaCache.setTipoCache(tipoMemoria);
         MemoriaCache.setPoliticaSubs(politicaSubs);
 
-        Bloco.criarListaLRU(qntBlocos);
+        Bloco.criarListaLRU(qntBlocos, qntPalavra);
 
         historico = new String[qntPalavra][mt];
         bitValidade = false;
