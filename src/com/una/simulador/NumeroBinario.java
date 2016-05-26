@@ -50,16 +50,16 @@ public class NumeroBinario {
         setTamVet();
 
         if (qntBlc == 1 || qntVal == 1) {
-            System.err.println("Entrou if Const. NumeroBinario");
+            //System.err.println("Entrou if Const. NumeroBinario");
             if (qntVal > 1) {
                 setNumDesl();
                 numMap = new char[1];
                 numMap[0] = '0';
                 setPalavra(this);
             } else if (qntBlc > 1) {
-                System.err.println("Entrou else if Const. NumeroBinario");
+               // System.err.println("Entrou else if Const. NumeroBinario");
                 setNumMap();
-                System.err.println("NumMap: " + getNumMap());
+              //  System.err.println("NumMap: " + getNumMap());
                 numDesl = new char[1];
                 numDesl[0] = '0';
             } else if (qntVal == 1 && qntBlc == 1) {
@@ -83,9 +83,9 @@ public class NumeroBinario {
 //            System.out.println(p);
 //        }
         }
-        System.err.println("Entrou setNumTag() NumeroBinario");
+ //       System.err.println("Entrou setNumTag() NumeroBinario");
         setNumTag();
-        System.err.println("NumTag: " + getNumTag());
+  //      System.err.println("NumTag: " + getNumTag());
 
     }
 
@@ -165,7 +165,7 @@ public class NumeroBinario {
      */
     private void setNumMap() {
         numMap = new char[log(getQntBlc())];
-        System.err.println("Tamanho numMap: " + numMap.length);
+//        System.err.println("Tamanho numMap: " + numMap.length);
         int mN = 0;
         if(log(getQntVal()) == mN){
             try{

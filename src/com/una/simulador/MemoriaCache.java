@@ -15,6 +15,13 @@ public abstract class MemoriaCache {
             endereco = 0, tempoMedio = 0, controleLista = 0, naLista;
     static private String politicaSubs, tipoCache, listaLRU[][];
 
+    /**
+     * @return the naLista
+     */
+    public static Integer getNaLista() {
+        return naLista;
+    }
+
     public MemoriaCache() {
         MemoriaCache.setEndereco();
     }
@@ -61,37 +68,39 @@ public abstract class MemoriaCache {
     }
 
     public static void criarListaLRU(Integer colunas, Integer linhas) {
-        listaLRU = new String[colunas][linhas];
+        listaLRU = new String[linhas][colunas];
     }
 
     /**
+     * Pega as linhas adicionam a um vetor e deste vetor é percorrido por mais
+     * um for que adiciona cada posição a uma string lista. Depois de percorrer
+     * a linha por completo adiciona-se um \n para dar a quebra de linha e
+     * separar os vetores de linha da matriz.
+     *
      * @return the listaLRU
      */
     public static String getListaLRU() {
         String lista = "";
         for (String[] lista1 : listaLRU) {
-            for (String[] lista11 : listaLRU) {
-                if ("".equals(lista11)) {
-                } else {
-                    lista += "[" + lista11 + "]";
-                }
+            for (String lista11 : lista1) {
+                lista += "[" + lista11 + "]";
             }
-
+            lista += "\n";
         }
         return lista;
     }
 
     public static boolean eListaLRUVazia() {
         for (String[] lista1 : listaLRU) {
-            for (String[] lista11 : listaLRU) {
+            for (String lista11 : lista1) {
                 try {
                     if (lista11 == null || lista11.equals("")) {
-                        System.out.println("-- vazio --");
+//                        System.out.println("-- vazio --");
                     } else {
                         return false;
                     }
                 } catch (NullPointerException ex) {
-                    System.err.println("Erro eListaLRUVazia " + ex);
+//                    System.err.println("Erro eListaLRUVazia " + ex);
                 }
             }
         }
@@ -99,15 +108,19 @@ public abstract class MemoriaCache {
     }
 
     public static boolean taNaLista(String valor) {
-        for (int i = 0; i < listaLRU.length; i++) {
-            for (int j = 0; j < listaLRU[i].length; j++) {
+        naLista = 10000;
+        for (int i = 0; i < listaLRU[0].length; i++) {
+            for (int j = 0; j < listaLRU.length; j++) {
                 try {
-                    if (listaLRU[i][j].equals(valor)) {
+                    if (listaLRU[j][i].equalsIgnoreCase(valor)) {
+//                        System.err.println("Ta na lista! " + valor);
                         naLista = i;
+                     //   setHit();
                         return true;
                     }
                 } catch (NullPointerException ex) {
-                    return false;
+//                    System.err.println("Ta na lista achou null");
+                    return true;
                 }
             }
         }
@@ -115,37 +128,60 @@ public abstract class MemoriaCache {
     }
 
     public static void setListaLRU(String valor, String[] palavras) {
-        if (taNaLista(valor)) {
-            int i = naLista;
+        if (taNaLista(valor) && getNaLista() != 10000) {
+            int i = getNaLista();
             int x = i + 1;
-            for (i = naLista; i < controleLista - 1; i++) {
-                for (int j = 0; j < listaLRU[i].length; j++) {
-                    listaLRU[i][j] = listaLRU[x][j];
-                }
-            }
-            for (int j = 0; j < listaLRU[controleLista - 1].length; j++) {
-                listaLRU[controleLista - 1][j] = palavras[j];
-            }
-        } else {
-            if (controleLista == listaLRU.length) {
-                int i = 0, x = i + 1;
-                for (i = 0; i < controleLista - 1; i++) {
-                    for (int j = 0; j < listaLRU[i].length; j++) {
-                        System.err.println("for\t " + listaLRU[i][j] + "\t" + listaLRU[x][j] + "\n" + getListaLRU());
-                        listaLRU[i][j] = listaLRU[x][j];
-                        x++;
+            if (palavras.length > 1) {
+                for (i = getNaLista(); i < (controleLista - 1); i++) {
+                    for (int j = 0; j < listaLRU.length; j++) {
+//                        System.err.println("Entrou setListLRU 1º for: " + listaLRU.length
+//                                + " " + listaLRU[0].length + " " + controleLista + " "
+//                                + x + " \n" + getListaLRU());
+                        listaLRU[j][i] = listaLRU[j][x];
                     }
+                    x++;
                 }
-                for (int j = 0; j < listaLRU[controleLista - 1].length; j++) {
-                    listaLRU[controleLista - 1][j] = palavras[j];
+                for (int j = 0; j < listaLRU.length; j++) {
+                    listaLRU[j][controleLista - 1] = palavras[j];
                 }
             } else {
-                for (int j = 0; j < listaLRU[controleLista].length; j++) {
-                    listaLRU[controleLista][j] = palavras[j];
+                for (i = getNaLista(); i < (controleLista - 1); i++) {
+                    listaLRU[0][i] = listaLRU[0][x];
+                    x++;
                 }
-                controleLista++;
+                listaLRU[0][controleLista - 1] = valor;
             }
-
+        } else if (controleLista == listaLRU[0].length) {
+            int i = 0, x = i + 1;
+            if (palavras.length > 1) {
+                for (i = 0; i < controleLista - 1; i++) {
+                    for (int j = 0; j < listaLRU.length; j++) {
+                       // System.err.println("Entrou setListLRU 2º for: " + listaLRU.length + " " + listaLRU[i].length);
+                       // System.err.println("for\n" + getListaLRU());
+                        listaLRU[j][i] = listaLRU[j][x];
+                    }
+                    x++;
+                }
+                for (int j = 0; j < listaLRU.length; j++) {
+                    listaLRU[j][controleLista - 1] = palavras[j];
+                }
+            } else {
+                for (i = 0; i < controleLista - 1; i++) {
+                    listaLRU[0][i] = listaLRU[0][x];
+                    x++;
+                }
+                listaLRU[0][controleLista - 1] = valor;
+            }
+        } else {
+            if (palavras.length > 1) {
+                for (int j = 0; j < listaLRU.length; j++) {
+                    //System.err.println("Entrou 2º else SetListaLRU: " + listaLRU.length + " " + j + " " + controleLista);
+                    listaLRU[j][controleLista] = palavras[j];
+                }
+            } else {
+                listaLRU[0][controleLista] = valor;
+            }
+            controleLista++;
         }
     }
 
