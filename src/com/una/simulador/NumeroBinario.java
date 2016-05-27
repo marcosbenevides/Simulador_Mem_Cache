@@ -57,9 +57,9 @@ public class NumeroBinario {
                 numMap[0] = '0';
                 setPalavra(this);
             } else if (qntBlc > 1) {
-               // System.err.println("Entrou else if Const. NumeroBinario");
+                // System.err.println("Entrou else if Const. NumeroBinario");
                 setNumMap();
-              //  System.err.println("NumMap: " + getNumMap());
+                //  System.err.println("NumMap: " + getNumMap());
                 numDesl = new char[1];
                 numDesl[0] = '0';
             } else if (qntVal == 1 && qntBlc == 1) {
@@ -69,8 +69,6 @@ public class NumeroBinario {
                 numDesl[0] = '0';
             }
         } else {
-            System.err.println("Entrou else Const. NumeroBinario");
-
             /**
              * chama função que preeche os vetores
              */
@@ -78,14 +76,8 @@ public class NumeroBinario {
             setNumMap();
             setNumDesl();
             setPalavra(this);
-
-//        for (String p : palavras) {
-//            System.out.println(p);
-//        }
         }
- //       System.err.println("Entrou setNumTag() NumeroBinario");
         setNumTag();
-  //      System.err.println("NumTag: " + getNumTag());
 
     }
 
@@ -165,15 +157,14 @@ public class NumeroBinario {
      */
     private void setNumMap() {
         numMap = new char[log(getQntBlc())];
-//        System.err.println("Tamanho numMap: " + numMap.length);
         int mN = 0;
-        if(log(getQntVal()) == mN){
-            try{
-                for(int i=0;i<numMap.length;i++){
+        if (log(getQntVal()) == mN) {
+            try {
+                for (int i = 0; i < numMap.length; i++) {
                     numMap[i] = numBin[i];
                 }
-            }catch(ArrayIndexOutOfBoundsException ex){
-                
+            } catch (ArrayIndexOutOfBoundsException ex) {
+
             }
         }
         try {
@@ -182,7 +173,7 @@ public class NumeroBinario {
                 mN++;
             }
         } catch (ArrayIndexOutOfBoundsException ex) {
-            
+
         }
     }
 
@@ -248,7 +239,6 @@ public class NumeroBinario {
             try {
                 retorno += valor[i];
             } catch (NullPointerException ex) {
-                System.err.println("trans\t" + ex);
             }
         }
         return retorno;

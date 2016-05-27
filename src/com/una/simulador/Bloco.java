@@ -33,8 +33,29 @@ public class Bloco extends MemoriaCache {
         if (getBitValidade()) {
             if (eHit(palavra, getContHistorico(), politicaSub, bloco)) {
                 setHit();
+                System.err.println("setHit()");
                 if (politicaSub.equalsIgnoreCase("LRU") || politicaSub.equalsIgnoreCase("FIFO")) {
-                    controleBloco--;
+                    switch (getControleBloco()) {
+                        case 0:
+                            System.err.println("if " + getControleBloco());
+                            setControleBloco(3);
+                            System.err.println("if depois " + getControleBloco());
+                            break;
+                        default:
+                            System.err.println("else " + getControleBloco());
+                            setControleBloco(getControleBloco() - 1);
+                            System.err.println("else depois " + getControleBloco());
+                            break;
+                    }
+//                    if (getControleBloco() == 0) {
+//                        System.err.println("if " + getControleBloco());
+//                        setControleBloco(3);
+//                        System.err.println("if depois " + getControleBloco());
+//                    }else if (getControleBloco() != 0) {
+//                        System.err.println("else " + getControleBloco());
+//                        setControleBloco(getControleBloco() - 1);
+//                        System.err.println("else depois " + getControleBloco());
+//                    }
                 }
             } else if (qntPalavra > 1) {
                 for (int i = 0; i < p.length; i++) {
@@ -57,42 +78,45 @@ public class Bloco extends MemoriaCache {
     public Boolean eHit(String palavra, Integer numCol, String politicaSub, Bloco[] bloco) {
         if (politicaSub.equalsIgnoreCase("FIFO")) {
             for (Bloco bloco1 : bloco) {
+                System.err.println("Entrou for bloco.");
                 for (int i = 0; i < bloco1.historico.length; i++) {
-                    if (numCol == 0 || bloco1.historico[i][numCol - 1] == null || bloco1.historico[i][numCol - 1].isEmpty()) {
+                    System.err.println("Entrou for histórico.");
+                    if (numCol == 0 || bloco1.historico[i][numCol - 1] == null) {
+                        System.err.println("Coluna: " + numCol);
                         return false;
-                    } else if (bloco1.historico[i][numCol - 1].equalsIgnoreCase(palavra)) {
+                    } else if (historico[i][numCol - 1].equalsIgnoreCase(palavra)) {
+                        System.err.println("É hit");
                         return true;
                     }
                 }
             }
         } else if (politicaSub.equalsIgnoreCase("LRU")) {
             return taNaLista(palavra) && getNaLista() != 10000;
+        } else if (!getBitValidade()) {
+            return false;
+        } else if (numCol == 0) {
+            return false;
         } else {
-            if (!getBitValidade()) {
-                return false;
-            } else {
-                if (numCol == 0) {
+            for (int i = 0; i < 1; i++) {
+                if (historico[i][numCol - 1] == null) {
+                    return false;
+                } else if (historico[i][numCol - 1].isEmpty()) {
                     return false;
                 } else {
-                    for (int i = 0; i < 1; i++) {
-                        if (historico[i][numCol - 1] == null) {
-                            return false;
-                        } else if (historico[i][numCol - 1].isEmpty()) {
-                            return false;
-                        } else {
-                            for (int x = i; x < historico.length; x++) {
-                                if (historico[x][numCol - 1].equalsIgnoreCase(palavra)) {
-                                    return true;
-                                }
-                            }
-
+                    for (int x = i; x < historico.length; x++) {
+                        if (historico[x][numCol - 1].equalsIgnoreCase(palavra)) {
+                            return true;
                         }
                     }
-                }
 
+                }
             }
         }
         return false;
+    }
+    
+    public void testarBloco(){
+        
     }
 
     public Boolean eHistoricoVazio() {
