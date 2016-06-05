@@ -12,22 +12,12 @@ package com.una.teste;
 public class TesteMain {
 
     public static void main(String[] args) {
-    listaLRU lista = new listaLRU();
-    lista.listaLRU = new Integer[4];
-    
-    lista.setLista(1);
-    lista.getLista();
-    lista.setLista(2);
-    lista.getLista();
-    lista.setLista(3);
-    lista.getLista();
-    lista.setLista(4);
-    lista.getLista();
-    
-    
-    
-    lista.setLista(5);
-    lista.getLista();
-
-}
+        Integer[] in = new Integer[4];
+        for (Integer in1 : in) {
+            Integer[] b = new Integer[2];
+            for (Integer b1 : b) {
+                b1 = 1;
+            }
+        }
+    }
 }

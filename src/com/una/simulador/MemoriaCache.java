@@ -95,12 +95,10 @@ public abstract class MemoriaCache {
             for (String lista11 : lista1) {
                 try {
                     if (lista11 == null || lista11.equals("")) {
-//                        System.out.println("-- vazio --");
                     } else {
                         return false;
                     }
                 } catch (NullPointerException ex) {
-//                    System.err.println("Erro eListaLRUVazia " + ex);
                 }
             }
         }
@@ -113,13 +111,11 @@ public abstract class MemoriaCache {
             for (int j = 0; j < listaLRU.length; j++) {
                 try {
                     if (listaLRU[j][i].equalsIgnoreCase(valor)) {
-//                        System.err.println("Ta na lista! " + valor);
                         naLista = i;
                      //   setHit();
                         return true;
                     }
                 } catch (NullPointerException ex) {
-//                    System.err.println("Ta na lista achou null");
                     return true;
                 }
             }
@@ -134,9 +130,6 @@ public abstract class MemoriaCache {
             if (palavras.length > 1) {
                 for (i = getNaLista(); i < (controleLista - 1); i++) {
                     for (int j = 0; j < listaLRU.length; j++) {
-//                        System.err.println("Entrou setListLRU 1º for: " + listaLRU.length
-//                                + " " + listaLRU[0].length + " " + controleLista + " "
-//                                + x + " \n" + getListaLRU());
                         listaLRU[j][i] = listaLRU[j][x];
                     }
                     x++;
@@ -156,8 +149,6 @@ public abstract class MemoriaCache {
             if (palavras.length > 1) {
                 for (i = 0; i < controleLista - 1; i++) {
                     for (int j = 0; j < listaLRU.length; j++) {
-                       // System.err.println("Entrou setListLRU 2º for: " + listaLRU.length + " " + listaLRU[i].length);
-                       // System.err.println("for\n" + getListaLRU());
                         listaLRU[j][i] = listaLRU[j][x];
                     }
                     x++;
@@ -175,7 +166,6 @@ public abstract class MemoriaCache {
         } else {
             if (palavras.length > 1) {
                 for (int j = 0; j < listaLRU.length; j++) {
-                    //System.err.println("Entrou 2º else SetListaLRU: " + listaLRU.length + " " + j + " " + controleLista);
                     listaLRU[j][controleLista] = palavras[j];
                 }
             } else {

@@ -50,16 +50,13 @@ public class NumeroBinario {
         setTamVet();
 
         if (qntBlc == 1 || qntVal == 1) {
-            //System.err.println("Entrou if Const. NumeroBinario");
             if (qntVal > 1) {
                 setNumDesl();
                 numMap = new char[1];
                 numMap[0] = '0';
                 setPalavra(this);
             } else if (qntBlc > 1) {
-                // System.err.println("Entrou else if Const. NumeroBinario");
                 setNumMap();
-                //  System.err.println("NumMap: " + getNumMap());
                 numDesl = new char[1];
                 numDesl[0] = '0';
             } else if (qntVal == 1 && qntBlc == 1) {
@@ -97,6 +94,10 @@ public class NumeroBinario {
      * sobrar vazio é preenchido com 0
      */
     private void setTamVet() {
+        Integer tamN = log(qntBlc) + log(qntVal) + 1;
+        if(qntBits<tamN){
+            qntBits = tamN;
+        }
         numBin = new char[qntBits];
         int a = 0;
         for (int i = numBinTemp.length - 1; i >= 0; i--) {

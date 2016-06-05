@@ -27,11 +27,13 @@ public class Simulador extends javax.swing.JFrame {
     //Vetor para de objetos da Classe NumeroBinario
     private NumeroBinario[] binario;
     //Vetor de blocos de memória
-    private Bloco[] blocos;
+    private Bloco[] blocos, compartimento, aux;
     //Variáveis para captura de dados do cliente
     private static Integer tempoRam, tempoCache, quantBlocos, quantPalavra, endMemoria;
     //Variáveis para captura de dados do cliente
     private String tipoMemCache, politicaSubs;
+    private Integer grauAssociatividade;
+    private AssociativaPorConjunto[] ac;
 
     /**
      * Construtor, chama o método para criar o Form
@@ -69,6 +71,10 @@ public class Simulador extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
+        popAC = new javax.swing.JDialog();
+        jLabel11 = new javax.swing.JLabel();
+        comboGrauAss = new javax.swing.JComboBox();
+        buttonOk = new javax.swing.JButton();
         panelConfig = new javax.swing.JPanel();
         comboBlocos = new javax.swing.JComboBox();
         comboPalavra = new javax.swing.JComboBox();
@@ -101,6 +107,7 @@ public class Simulador extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
 
         frameMemoryTrace.setTitle("Memory Trace");
+        frameMemoryTrace.setLocationByPlatform(true);
         frameMemoryTrace.setMinimumSize(new java.awt.Dimension(350, 260));
         frameMemoryTrace.setName("frameMemoryTrace"); // NOI18N
         frameMemoryTrace.setPreferredSize(new java.awt.Dimension(350, 260));
@@ -151,6 +158,7 @@ public class Simulador extends javax.swing.JFrame {
         frameMemoryTrace.getAccessibleContext().setAccessibleDescription("");
         frameMemoryTrace.getAccessibleContext().setAccessibleParent(this);
 
+        sobre.setLocationByPlatform(true);
         sobre.setMinimumSize(new java.awt.Dimension(400, 300));
         sobre.setResizable(false);
 
@@ -238,6 +246,28 @@ public class Simulador extends javax.swing.JFrame {
         );
 
         jLabel4.setText("jLabel4");
+
+        popAC.setTitle("Associativa por conjunto");
+        popAC.setLocationByPlatform(true);
+        popAC.setMaximumSize(new java.awt.Dimension(200, 100));
+        popAC.setMinimumSize(new java.awt.Dimension(200, 100));
+        popAC.setPreferredSize(new java.awt.Dimension(200, 100));
+        popAC.setType(java.awt.Window.Type.POPUP);
+        popAC.getContentPane().setLayout(new java.awt.GridLayout(3, 0));
+
+        jLabel11.setText("Grau de Associatividade");
+        popAC.getContentPane().add(jLabel11);
+
+        comboGrauAss.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "4", "8", "16", "32", "64", "128" }));
+        popAC.getContentPane().add(comboGrauAss);
+
+        buttonOk.setText("Confirma");
+        buttonOk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonOkActionPerformed(evt);
+            }
+        });
+        popAC.getContentPane().add(buttonOk);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulador Memória Cache");
@@ -618,8 +648,17 @@ public class Simulador extends javax.swing.JFrame {
         criarMemoriaCache();
 
         //Mostra na área de status as informações sobre os blocos criados
-        for (Bloco bloco : blocos) {
-            this.atualizarStatus(bloco.toString());
+        if (tipoMemCache.equalsIgnoreCase("AC")) {
+            for (AssociativaPorConjunto ac1 : ac) {
+                atualizarStatus(ac1.toString());
+                for (Bloco bloco : ac1.bloco) {
+                    this.atualizarStatus(bloco.toString());
+                }
+            }
+        } else {
+            for (Bloco bloco : blocos) {
+                this.atualizarStatus(bloco.toString());
+            }
         }
 
         //Começa a manipulação dos dados e leitura do MT para inserção nos blocos
@@ -634,14 +673,19 @@ public class Simulador extends javax.swing.JFrame {
     private void radioTipoMDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTipoMDActionPerformed
         tipoMemCache = "MD";
 
+        politicaSubs = "MD";
+
         radioSubsFIFO.setEnabled(false);
         radioSubsLRU.setEnabled(false);
     }//GEN-LAST:event_radioTipoMDActionPerformed
 
     private void radioTipoACActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTipoACActionPerformed
         tipoMemCache = "AC";
-        radioSubsFIFO.setEnabled(false);
-        radioSubsLRU.setEnabled(false);
+
+        popAC.setVisible(true);
+
+        radioSubsFIFO.setEnabled(true);
+        radioSubsLRU.setEnabled(true);
     }//GEN-LAST:event_radioTipoACActionPerformed
 
     private void radioTipoTAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTipoTAActionPerformed
@@ -675,9 +719,12 @@ public class Simulador extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoExportarActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
         sobre.setVisible(rootPaneCheckingEnabled);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
+        grauAssociatividade = Integer.parseInt(comboGrauAss.getSelectedItem().toString());
+    }//GEN-LAST:event_buttonOkActionPerformed
 
     /**
      * @param args the command line arguments
@@ -720,12 +767,15 @@ public class Simulador extends javax.swing.JFrame {
     private javax.swing.JButton botaoExportar;
     private javax.swing.JButton botaoGravarMT;
     private javax.swing.JButton botaoMT;
+    private javax.swing.JButton buttonOk;
     private javax.swing.JComboBox comboBlocos;
+    private javax.swing.JComboBox comboGrauAss;
     private javax.swing.JComboBox comboPalavra;
     private javax.swing.JEditorPane editorMemoryTrace;
     private javax.swing.JFrame frameMemoryTrace;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -752,6 +802,7 @@ public class Simulador extends javax.swing.JFrame {
     private javax.swing.JPanel panelConfig;
     private javax.swing.JPanel panelStatus;
     private javax.swing.ButtonGroup politicaDeSubstituicao;
+    private javax.swing.JDialog popAC;
     private javax.swing.JRadioButton radioSubsFIFO;
     private javax.swing.JRadioButton radioSubsLRU;
     private javax.swing.JRadioButton radioTipoAC;
@@ -837,12 +888,20 @@ public class Simulador extends javax.swing.JFrame {
     }
 
     private void criarMemoriaCache() {
-
-        blocos = new Bloco[quantBlocos];
-        for (int i = 0; i < blocos.length; i++) {
-            blocos[i] = new Bloco(mT.length, tipoMemCache, politicaSubs, quantPalavra, quantBlocos);
+        if (tipoMemCache.equalsIgnoreCase("AC")) {
+            ac = new AssociativaPorConjunto[grauAssociatividade];
+            for (int i = 0; i < ac.length; i++) {
+                ac[i] = new AssociativaPorConjunto(quantBlocos);
+                for (int j = 0; j < ac[i].bloco.length; j++) {
+                    ac[i].bloco[j] = new Bloco(mT.length, tipoMemCache, politicaSubs, quantPalavra, quantBlocos);
+                }
+            }
+        } else {
+            blocos = new Bloco[quantBlocos];
+            for (int i = 0; i < blocos.length; i++) {
+                blocos[i] = new Bloco(mT.length, tipoMemCache, politicaSubs, quantPalavra, quantBlocos);
+            }
         }
-
     }
 
     private void iniciarLeitura() {
@@ -859,6 +918,7 @@ public class Simulador extends javax.swing.JFrame {
                     break;
                 case "TA":
                     for (int i = 0; i < mT.length; i++) {
+                        int a = i + 1;
                         blocos[validaControleBloco()].setHistorico(binario[i].getNumBin(), binario[i].getPalavras(), politicaSubs, blocos);
                         this.atualizarStatus("Binário: " + binario[i].getNumBin()
                                 + "\tMapeamento: " + binario[i].getNumMap());
@@ -873,29 +933,54 @@ public class Simulador extends javax.swing.JFrame {
                     }
                     break;
                 case "AC":
+                    for (int i = 0; i < binario.length; i++) {
+                        endMemoria = (Integer.parseInt(binario[i].getNumMap(), 2));
+                        ac[endMemoria].bloco[validaControleBloco()].setHistorico(binario[i].getNumBin(), binario[i].getPalavras(), politicaSubs, ac[endMemoria].bloco);
+                        this.atualizarStatus("Binário: " + binario[i].getNumBin()
+                                + "\tMapeamento: " + binario[i].getNumMap());
+                        this.atualizarStatus(ac[endMemoria].bloco[validaControleBloco()].toString());
+                        if ("LRU".equals(politicaSubs)) {
+                            Bloco.setListaLRU(binario[i].getNumBin(), binario[i].getPalavras());
+                            this.atualizarStatus("Lista LRU:\n" + Bloco.getListaLRU()
+                                    + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                        } else {
+                        }
+                        ac[endMemoria].bloco[0].setControleBloco();
+                    }
+
                     break;
             }
         }
-
-        this.atualizarStatus("\n\n" + blocos[0].toString2());
+        if (tipoMemCache.equalsIgnoreCase("AC")) {
+            aux = ac[endMemoria].bloco;
+        } else {
+            aux = blocos;
+        }
+        this.atualizarStatus("\n\n" + aux[0].toString2());
         this.atualizarStatus("Tempo médio de acesso: " + Bloco.getTempoMedio(tempoCache, tempoRam));
     }
 
     private Integer validaControleBloco() {
-        if (blocos[0].getControleBloco() < blocos.length) {
-            System.err.println("Entrou if ControleBlocos: " + blocos[0].getControleBloco());
-            return blocos[0].getControleBloco();
+        if (tipoMemCache.equalsIgnoreCase("AC")) {
+            if (ac[endMemoria].bloco[0].getControleBloco() < ac[endMemoria].bloco.length) {
+                return ac[endMemoria].bloco[0].getControleBloco();
+            } else {
+                ac[endMemoria].bloco[0].setControleBloco(0);
+                return ac[endMemoria].bloco[0].getControleBloco();
+            }
         } else {
-            System.err.println("Entrou else ControleBlocos 0: " + blocos[0].getControleBloco());
-            blocos[0].setControleBloco(0);
-            return blocos[0].getControleBloco();
+            if (blocos[0].getControleBloco() < blocos.length) {
+                return blocos[0].getControleBloco();
+            } else {
+                blocos[0].setControleBloco(0);
+                return blocos[0].getControleBloco();
+            }
         }
     }
 
     private void exportarTxt() throws IOException {
         String line = System.getProperty("line.separator");
         String data = new SimpleDateFormat("dd-MM-yyyy hh-mm-ss").format(new Date(System.currentTimeMillis()));
-        System.err.println(System.getProperty("user.dir") + "\\Exporta" + data + ".txt");
         FileWriter arquivo = new FileWriter(System.getProperty("user.dir") + "\\Exporta" + data + ".txt");
         PrintWriter gravarArquivo = new PrintWriter(arquivo);
         gravarArquivo.print(textStatus.getText().replaceAll("(\r\n|\n)", line));

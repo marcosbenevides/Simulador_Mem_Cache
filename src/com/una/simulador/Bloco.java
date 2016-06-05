@@ -15,6 +15,8 @@ public class Bloco extends MemoriaCache {
     private String historico[][];
     private Integer id, contHistorico = 0, contPalavra = 0, qntPalavra;
     private static Integer controleBloco = 0;
+    
+    public Bloco(){}
 
     public Bloco(Integer mt, String tipoMemoria, String politicaSubs, Integer qntPalavra, Integer qntBlocos) {
 
@@ -30,32 +32,15 @@ public class Bloco extends MemoriaCache {
     }
 
     public void setHistorico(String palavra, String[] p, String politicaSub, Bloco[] bloco) {
-        if (getBitValidade()) {
+        if (getBitValidade() || politicaSub.equalsIgnoreCase("LRU") || politicaSub.equalsIgnoreCase("FIFO")) {
             if (eHit(palavra, getContHistorico(), politicaSub, bloco)) {
                 setHit();
-                System.err.println("setHit()");
                 if (politicaSub.equalsIgnoreCase("LRU") || politicaSub.equalsIgnoreCase("FIFO")) {
-                    switch (getControleBloco()) {
-                        case 0:
-                            System.err.println("if " + getControleBloco());
-                            setControleBloco(3);
-                            System.err.println("if depois " + getControleBloco());
-                            break;
-                        default:
-                            System.err.println("else " + getControleBloco());
-                            setControleBloco(getControleBloco() - 1);
-                            System.err.println("else depois " + getControleBloco());
-                            break;
+                    if (getControleBloco() == 0) {
+                        setControleBloco(3);
+                    } else if (getControleBloco() != 0) {
+                        setControleBloco(getControleBloco() - 1);
                     }
-//                    if (getControleBloco() == 0) {
-//                        System.err.println("if " + getControleBloco());
-//                        setControleBloco(3);
-//                        System.err.println("if depois " + getControleBloco());
-//                    }else if (getControleBloco() != 0) {
-//                        System.err.println("else " + getControleBloco());
-//                        setControleBloco(getControleBloco() - 1);
-//                        System.err.println("else depois " + getControleBloco());
-//                    }
                 }
             } else if (qntPalavra > 1) {
                 for (int i = 0; i < p.length; i++) {
@@ -77,16 +62,16 @@ public class Bloco extends MemoriaCache {
 
     public Boolean eHit(String palavra, Integer numCol, String politicaSub, Bloco[] bloco) {
         if (politicaSub.equalsIgnoreCase("FIFO")) {
+            if (numCol != 0) {
+                numCol--;
+            }
             for (Bloco bloco1 : bloco) {
-                System.err.println("Entrou for bloco.");
                 for (int i = 0; i < bloco1.historico.length; i++) {
-                    System.err.println("Entrou for histórico.");
-                    if (numCol == 0 || bloco1.historico[i][numCol - 1] == null) {
-                        System.err.println("Coluna: " + numCol);
-                        return false;
-                    } else if (historico[i][numCol - 1].equalsIgnoreCase(palavra)) {
-                        System.err.println("É hit");
-                        return true;
+                    try {
+                        if (bloco1.historico[i][numCol].equalsIgnoreCase(palavra) && bloco1.historico[i][numCol+1] ==  null || bloco1.historico[i][numCol+1].equalsIgnoreCase(palavra)) {
+                            return true;
+                        }
+                    } catch (NullPointerException p) {
                     }
                 }
             }
@@ -114,9 +99,9 @@ public class Bloco extends MemoriaCache {
         }
         return false;
     }
-    
-    public void testarBloco(){
-        
+
+    public void testarBloco() {
+
     }
 
     public Boolean eHistoricoVazio() {
