@@ -7,7 +7,7 @@ package com.una.teste;
 
 /**
  *
- * @author Henrique Gallis
+ * @author Marcos
  */
 public class TesteMain {
 

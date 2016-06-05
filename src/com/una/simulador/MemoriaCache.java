@@ -235,10 +235,10 @@ public abstract class MemoriaCache {
     /**
      *
      * @param tempoCache
-     * @param ram
+     * @param tempoRam
      * @return
      */
-    protected static Integer getTempoMedio(Integer tempoCache, Integer ram) {
-        return (tempoCache + ((1 - getHit()) * ram));
+    protected static Integer getTempoMedio(Integer tempoCache, Integer tempoRam) {
+        return (((hit + miss)*tempoRam)/(hit*tempoCache)+(miss*tempoRam));
     }
 }

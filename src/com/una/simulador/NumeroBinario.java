@@ -7,7 +7,7 @@ package com.una.simulador;
 
 /**
  *
- * @author Henrique Gallis
+ * @author Marcos
  */
 public class NumeroBinario {
 

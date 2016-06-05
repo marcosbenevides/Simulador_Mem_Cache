@@ -5,12 +5,12 @@
  */
 package com.una.simulador;
 
+import java.awt.event.KeyEvent;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,11 +28,11 @@ public class Simulador extends javax.swing.JFrame {
     private NumeroBinario[] binario;
     //Vetor de blocos de memória
     private Bloco[] blocos, compartimento, aux;
-    //Variáveis para captura de dados do cliente
-    private static Integer tempoRam, tempoCache, quantBlocos, quantPalavra, endMemoria;
+    //Variáveis para captura de dados do usuário
+    private static Integer tempoRam, tempoCache, quantBlocos, quantPalavra, endMemoria, grauAssociatividade;
     //Variáveis para captura de dados do cliente
     private String tipoMemCache, politicaSubs;
-    private Integer grauAssociatividade;
+    //Vetor responsável pela lógica Associativa por Conjunto
     private AssociativaPorConjunto[] ac;
 
     /**
@@ -70,7 +70,6 @@ public class Simulador extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         popAC = new javax.swing.JDialog();
         jLabel11 = new javax.swing.JLabel();
         comboGrauAss = new javax.swing.JComboBox();
@@ -98,10 +97,12 @@ public class Simulador extends javax.swing.JFrame {
         botaoCancelar = new javax.swing.JButton();
         botaoExportar = new javax.swing.JButton();
         botaoMT = new javax.swing.JButton();
-        panelStatus = new javax.swing.JPanel();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
         scrollStatus = new javax.swing.JScrollPane();
         textStatus = new javax.swing.JTextArea();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        textStatus2 = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -113,6 +114,11 @@ public class Simulador extends javax.swing.JFrame {
         frameMemoryTrace.setPreferredSize(new java.awt.Dimension(350, 260));
 
         editorMemoryTrace.setContentType("memory trace"); // NOI18N
+        editorMemoryTrace.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                editorMemoryTraceKeyTyped(evt);
+            }
+        });
         scrollMemoryTrace.setViewportView(editorMemoryTrace);
 
         labelMemoryTrace.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -245,8 +251,6 @@ public class Simulador extends javax.swing.JFrame {
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
-        jLabel4.setText("jLabel4");
-
         popAC.setTitle("Associativa por conjunto");
         popAC.setLocationByPlatform(true);
         popAC.setMaximumSize(new java.awt.Dimension(200, 100));
@@ -272,10 +276,10 @@ public class Simulador extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulador Memória Cache");
         setLocationByPlatform(true);
-        setMaximumSize(new java.awt.Dimension(590, 494));
-        setMinimumSize(new java.awt.Dimension(590, 494));
+        setMaximumSize(new java.awt.Dimension(625, 500));
+        setMinimumSize(new java.awt.Dimension(625, 500));
         setName("simuFrame"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(590, 494));
+        setPreferredSize(new java.awt.Dimension(625, 500));
         setResizable(false);
 
         panelConfig.setBackground(getBackground());
@@ -403,7 +407,7 @@ public class Simulador extends javax.swing.JFrame {
                     .addGroup(panelConfigLayout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(sliderTempoRam, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(sliderTempoCache, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelTempoCache)
@@ -413,7 +417,7 @@ public class Simulador extends javax.swing.JFrame {
                     .addComponent(labelBloco))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelTempoCache1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
         panelConfigLayout.setVerticalGroup(
             panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -492,16 +496,16 @@ public class Simulador extends javax.swing.JFrame {
         panelCommit.setLayout(panelCommitLayout);
         panelCommitLayout.setHorizontalGroup(
             panelCommitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelCommitLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(botaoMT, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(panelCommitLayout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addComponent(botaoMT, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(botaoExecutar)
                 .addGap(18, 18, 18)
                 .addComponent(botaoCancelar)
                 .addGap(18, 18, 18)
                 .addComponent(botaoExportar)
-                .addGap(35, 35, 35))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelCommitLayout.setVerticalGroup(
             panelCommitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -515,7 +519,11 @@ public class Simulador extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        panelStatus.setBackground(getBackground());
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         textStatus.setBackground(new java.awt.Color(0, 0, 0));
         textStatus.setColumns(5);
@@ -529,23 +537,31 @@ public class Simulador extends javax.swing.JFrame {
         textStatus.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         scrollStatus.setViewportView(textStatus);
 
-        javax.swing.GroupLayout panelStatusLayout = new javax.swing.GroupLayout(panelStatus);
-        panelStatus.setLayout(panelStatusLayout);
-        panelStatusLayout.setHorizontalGroup(
-            panelStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panelStatusLayout.createSequentialGroup()
-                .addComponent(scrollStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jTabbedPane1.addTab("Passo a passo", scrollStatus);
+
+        textStatus2.setEditable(false);
+        textStatus2.setBackground(new java.awt.Color(0, 0, 0));
+        textStatus2.setColumns(20);
+        textStatus2.setFont(new java.awt.Font("Consolas", 1, 10)); // NOI18N
+        textStatus2.setForeground(new java.awt.Color(255, 255, 255));
+        textStatus2.setLineWrap(true);
+        textStatus2.setRows(10);
+        textStatus2.setTabSize(5);
+        textStatus2.setCaretColor(new java.awt.Color(255, 255, 255));
+        jScrollPane2.setViewportView(textStatus2);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
         );
-        panelStatusLayout.setVerticalGroup(
-            panelStatusLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollStatus, javax.swing.GroupLayout.DEFAULT_SIZE, 221, Short.MAX_VALUE)
-            .addGroup(panelStatusLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
         );
+
+        jTabbedPane1.addTab("Direto", jPanel1);
 
         jMenu1.setText("Ajuda");
 
@@ -567,13 +583,11 @@ public class Simulador extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(panelCommit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panelConfig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())))
+                    .addComponent(panelConfig, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 606, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -583,8 +597,7 @@ public class Simulador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelCommit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panelStatus, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jTabbedPane1))
         );
 
         getAccessibleContext().setAccessibleName("Simulador");
@@ -623,25 +636,26 @@ public class Simulador extends javax.swing.JFrame {
         quantPalavra = Integer.parseInt(comboPalavra.getSelectedItem().toString());
 
         //Mostra na área de Status
-        this.atualizarStatus("CONFIGURAÇÃO ESCOLHIDA");
-        this.atualizarStatus("------------------------------------------------------------------");
-        this.atualizarStatus("Tipo de Memoria Cache: " + tipoMemCache);
-        this.atualizarStatus("Tipo de Política de Substituição: " + politicaSubs);
-        this.atualizarStatus("Tempo de Acesso a Memória Ram: " + tempoRam);
-        this.atualizarStatus("Tempo de Acesso a Memória Cache: " + tempoCache);
-        this.atualizarStatus("Quantidade de Blocos: " + quantBlocos);
-        this.atualizarStatus("Tamanho do Bloco: " + quantPalavra);
-        this.atualizarStatus("------------------------------------------------------------------");
-        this.atualizarStatus("MEMORY TRACE DIGITADO:");
+        this.atualizarStatus("CONFIGURAÇÃO ESCOLHIDA", true);
+        this.atualizarStatus("------------------------------------------------------------------", true);
+        this.atualizarStatus("Tipo de Memoria Cache: " + tipoMemCache, true);
+        this.atualizarStatus("Tipo de Política de Substituição: " + politicaSubs, true);
+        this.atualizarStatus("Tempo de Acesso a Memória Ram: " + tempoRam, true);
+        this.atualizarStatus("Tempo de Acesso a Memória Cache: " + tempoCache, true);
+        this.atualizarStatus("Quantidade de Blocos: " + quantBlocos, true);
+        this.atualizarStatus("Tamanho do Bloco: " + quantPalavra, true);
+        this.atualizarStatus("Grau de associatividade: " + grauAssociatividade, true);
+        this.atualizarStatus("------------------------------------------------------------------", true);
+        this.atualizarStatus("MEMORY TRACE DIGITADO:", true);
         tratarMemorytrace(editorMemoryTrace.getText());
-        this.atualizarStatus("\n------------------------------------------------------------------");
+        this.atualizarStatus("\n------------------------------------------------------------------", true);
 
         //Com os dados capturados chama método para criação do vetor de objetos
         criarNumBin();
 
         //Mostra na área de status as informações das palavras do MT
         for (NumeroBinario binario1 : binario) {
-            this.atualizarStatus(binario1.toString());
+            this.atualizarStatus(binario1.toString(), true);
         }
 
         //cria os blocos de memória
@@ -650,14 +664,14 @@ public class Simulador extends javax.swing.JFrame {
         //Mostra na área de status as informações sobre os blocos criados
         if (tipoMemCache.equalsIgnoreCase("AC")) {
             for (AssociativaPorConjunto ac1 : ac) {
-                atualizarStatus(ac1.toString());
+                atualizarStatus(ac1.toString(), false);
                 for (Bloco bloco : ac1.bloco) {
-                    this.atualizarStatus(bloco.toString());
+                    this.atualizarStatus(bloco.toString(), false);
                 }
             }
         } else {
             for (Bloco bloco : blocos) {
-                this.atualizarStatus(bloco.toString());
+                this.atualizarStatus(bloco.toString(), false);
             }
         }
 
@@ -712,7 +726,7 @@ public class Simulador extends javax.swing.JFrame {
             exportarTxt();
         } catch (IOException ex) {
             Logger.getLogger(Simulador.class.getName()).log(Level.SEVERE, null, ex);
-            this.atualizarStatus("Erro ao exportar arquivo.");
+            this.atualizarStatus("Erro ao exportar arquivo.", false);
 
         }
 
@@ -724,7 +738,20 @@ public class Simulador extends javax.swing.JFrame {
 
     private void buttonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonOkActionPerformed
         grauAssociatividade = Integer.parseInt(comboGrauAss.getSelectedItem().toString());
+        popAC.dispose();
     }//GEN-LAST:event_buttonOkActionPerformed
+
+    private void editorMemoryTraceKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_editorMemoryTraceKeyTyped
+
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            frameMemoryTrace.setVisible(false);
+        }
+
+    }//GEN-LAST:event_editorMemoryTraceKeyTyped
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        System.err.println(jTabbedPane1.getSelectedIndex());
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -777,8 +804,6 @@ public class Simulador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -787,7 +812,10 @@ public class Simulador extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labelBloco;
@@ -800,7 +828,6 @@ public class Simulador extends javax.swing.JFrame {
     private javax.swing.JLabel labelTipo;
     private javax.swing.JPanel panelCommit;
     private javax.swing.JPanel panelConfig;
-    private javax.swing.JPanel panelStatus;
     private javax.swing.ButtonGroup politicaDeSubstituicao;
     private javax.swing.JDialog popAC;
     private javax.swing.JRadioButton radioSubsFIFO;
@@ -814,6 +841,7 @@ public class Simulador extends javax.swing.JFrame {
     private javax.swing.JSlider sliderTempoRam;
     private javax.swing.JDialog sobre;
     private javax.swing.JTextArea textStatus;
+    private javax.swing.JTextArea textStatus2;
     private javax.swing.ButtonGroup tiposMemoriaCache;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
@@ -829,9 +857,13 @@ public class Simulador extends javax.swing.JFrame {
      * Método para atualizar texto da área de Status
      *
      * @param texto
+     * @param direto
      */
-    public void atualizarStatus(String texto) {
+    public void atualizarStatus(String texto, boolean direto) {
         this.textStatus.append(texto + "\n");
+        if (direto) {
+            this.textStatus2.append(texto + "\n");
+        }
     }
 
     /**
@@ -855,7 +887,7 @@ public class Simulador extends javax.swing.JFrame {
             }
         } catch (NumberFormatException ex) {
             this.atualizarStatus("\nATENÇÃO!\nForam digitados números "
-                    + "inválidos no Memory Trace, os mesmos foram desconsiderados!");
+                    + "inválidos no Memory Trace, favor reiniciar a aplicação!", false);
         }
     }
 
@@ -905,15 +937,15 @@ public class Simulador extends javax.swing.JFrame {
     }
 
     private void iniciarLeitura() {
-        this.atualizarStatus("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nAtualização de cache\n");
+        this.atualizarStatus("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\nAtualização de cache\n", false);
         if (null != tipoMemCache) {
             switch (tipoMemCache) {
                 case "MD":
                     for (NumeroBinario binario1 : binario) {
                         endMemoria = (Integer.parseInt(binario1.getNumMap(), 2));
                         blocos[endMemoria].setHistorico(binario1.getNumBin(), binario1.getPalavras(), politicaSubs, blocos);
-                        this.atualizarStatus("Binário: " + binario1.getNumBin() + "\tMapeamento: " + binario1.getNumMap());
-                        this.atualizarStatus(blocos[endMemoria].toString());
+                        this.atualizarStatus("Binário: " + binario1.getNumBin() + "\tMapeamento: " + binario1.getNumMap(), false);
+                        this.atualizarStatus(blocos[endMemoria].toString(), false);
                     }
                     break;
                 case "TA":
@@ -921,12 +953,12 @@ public class Simulador extends javax.swing.JFrame {
                         int a = i + 1;
                         blocos[validaControleBloco()].setHistorico(binario[i].getNumBin(), binario[i].getPalavras(), politicaSubs, blocos);
                         this.atualizarStatus("Binário: " + binario[i].getNumBin()
-                                + "\tMapeamento: " + binario[i].getNumMap());
-                        this.atualizarStatus(blocos[validaControleBloco()].toString());
+                                + "\tMapeamento: " + binario[i].getNumMap(), false);
+                        this.atualizarStatus(blocos[validaControleBloco()].toString(), false);
                         if ("LRU".equals(politicaSubs)) {
                             Bloco.setListaLRU(binario[i].getNumBin(), binario[i].getPalavras());
                             this.atualizarStatus("Lista LRU:\n" + Bloco.getListaLRU()
-                                    + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                                    + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", false);
                         } else {
                         }
                         blocos[0].setControleBloco();
@@ -937,12 +969,12 @@ public class Simulador extends javax.swing.JFrame {
                         endMemoria = (Integer.parseInt(binario[i].getNumMap(), 2));
                         ac[endMemoria].bloco[validaControleBloco()].setHistorico(binario[i].getNumBin(), binario[i].getPalavras(), politicaSubs, ac[endMemoria].bloco);
                         this.atualizarStatus("Binário: " + binario[i].getNumBin()
-                                + "\tMapeamento: " + binario[i].getNumMap());
-                        this.atualizarStatus(ac[endMemoria].bloco[validaControleBloco()].toString());
+                                + "\tMapeamento: " + binario[i].getNumMap(), false);
+                        this.atualizarStatus(ac[endMemoria].bloco[validaControleBloco()].toString(), false);
                         if ("LRU".equals(politicaSubs)) {
                             Bloco.setListaLRU(binario[i].getNumBin(), binario[i].getPalavras());
                             this.atualizarStatus("Lista LRU:\n" + Bloco.getListaLRU()
-                                    + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                                    + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~", false);
                         } else {
                         }
                         ac[endMemoria].bloco[0].setControleBloco();
@@ -956,8 +988,8 @@ public class Simulador extends javax.swing.JFrame {
         } else {
             aux = blocos;
         }
-        this.atualizarStatus("\n\n" + aux[0].toString2());
-        this.atualizarStatus("Tempo médio de acesso: " + Bloco.getTempoMedio(tempoCache, tempoRam));
+        this.atualizarStatus("\n\n" + aux[0].toString2(), true);
+        this.atualizarStatus("SpeedUP: " + Bloco.getTempoMedio(tempoCache, tempoRam), true);
     }
 
     private Integer validaControleBloco() {
@@ -983,11 +1015,16 @@ public class Simulador extends javax.swing.JFrame {
         String data = new SimpleDateFormat("dd-MM-yyyy hh-mm-ss").format(new Date(System.currentTimeMillis()));
         FileWriter arquivo = new FileWriter(System.getProperty("user.dir") + "\\Exporta" + data + ".txt");
         PrintWriter gravarArquivo = new PrintWriter(arquivo);
-        gravarArquivo.print(textStatus.getText().replaceAll("(\r\n|\n)", line));
+        if (jTabbedPane1.getSelectedIndex() == 0) {
+            gravarArquivo.print(textStatus.getText().replaceAll("(\r\n|\n)", line));
+        } else {
+            gravarArquivo.print(textStatus2.getText().replaceAll("(\r\n|\n)", line));
+        }
         arquivo.close();
 
-        this.atualizarStatus("Arquivo salvo com sucesso!");
+        this.atualizarStatus("Arquivo salvo com sucesso!", true);
         Runtime.getRuntime().exec("explorer " + System.getProperty("user.dir"));
 
     }
+
 }
