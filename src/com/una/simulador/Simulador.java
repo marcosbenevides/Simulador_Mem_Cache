@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -29,7 +31,7 @@ public class Simulador extends javax.swing.JFrame {
     //Vetor de blocos de memória
     private Bloco[] blocos, compartimento, aux;
     //Variáveis para captura de dados do usuário
-    private static Integer tempoRam, tempoCache, quantBlocos, quantPalavra, endMemoria, grauAssociatividade;
+    private static Integer tempoRam, tempoCache, quantBlocos, quantPalavra, endMemoria, grauAssociatividade, contador = 0;
     //Variáveis para captura de dados do cliente
     private String tipoMemCache, politicaSubs;
     //Vetor responsável pela lógica Associativa por Conjunto
@@ -74,6 +76,10 @@ public class Simulador extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         comboGrauAss = new javax.swing.JComboBox();
         buttonOk = new javax.swing.JButton();
+        SpeedUp = new javax.swing.JFrame();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tabelaSpUP = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
         panelConfig = new javax.swing.JPanel();
         comboBlocos = new javax.swing.JComboBox();
         comboPalavra = new javax.swing.JComboBox();
@@ -94,9 +100,9 @@ public class Simulador extends javax.swing.JFrame {
         radioSubsLRU = new javax.swing.JRadioButton();
         panelCommit = new javax.swing.JPanel();
         botaoExecutar = new javax.swing.JButton();
-        botaoCancelar = new javax.swing.JButton();
         botaoExportar = new javax.swing.JButton();
         botaoMT = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         scrollStatus = new javax.swing.JScrollPane();
         textStatus = new javax.swing.JTextArea();
@@ -253,9 +259,7 @@ public class Simulador extends javax.swing.JFrame {
 
         popAC.setTitle("Associativa por conjunto");
         popAC.setLocationByPlatform(true);
-        popAC.setMaximumSize(new java.awt.Dimension(200, 100));
         popAC.setMinimumSize(new java.awt.Dimension(200, 100));
-        popAC.setPreferredSize(new java.awt.Dimension(200, 100));
         popAC.setType(java.awt.Window.Type.POPUP);
         popAC.getContentPane().setLayout(new java.awt.GridLayout(3, 0));
 
@@ -272,6 +276,63 @@ public class Simulador extends javax.swing.JFrame {
             }
         });
         popAC.getContentPane().add(buttonOk);
+
+        SpeedUp.setMaximumSize(new java.awt.Dimension(400, 300));
+        SpeedUp.setMinimumSize(new java.awt.Dimension(400, 200));
+        SpeedUp.setPreferredSize(new java.awt.Dimension(400, 200));
+
+        tabelaSpUP.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Ordem", "Hit", "Miss", "SpeedUP"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaSpUP.setColumnSelectionAllowed(true);
+        jScrollPane3.setViewportView(tabelaSpUP);
+        tabelaSpUP.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/error.png"))); // NOI18N
+        jButton1.setText("Fechar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout SpeedUpLayout = new javax.swing.GroupLayout(SpeedUp.getContentPane());
+        SpeedUp.getContentPane().setLayout(SpeedUpLayout);
+        SpeedUpLayout.setHorizontalGroup(
+            SpeedUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(SpeedUpLayout.createSequentialGroup()
+                .addGap(131, 131, 131)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(151, Short.MAX_VALUE))
+        );
+        SpeedUpLayout.setVerticalGroup(
+            SpeedUpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(SpeedUpLayout.createSequentialGroup()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Simulador Memória Cache");
@@ -407,7 +468,7 @@ public class Simulador extends javax.swing.JFrame {
                     .addGroup(panelConfigLayout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(sliderTempoRam, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(sliderTempoCache, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelTempoCache)
@@ -417,7 +478,7 @@ public class Simulador extends javax.swing.JFrame {
                     .addComponent(labelBloco))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelTempoCache1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelConfigLayout.setVerticalGroup(
             panelConfigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -468,14 +529,6 @@ public class Simulador extends javax.swing.JFrame {
             }
         });
 
-        botaoCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eraser.png"))); // NOI18N
-        botaoCancelar.setText("Limpar");
-        botaoCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botaoCancelarActionPerformed(evt);
-            }
-        });
-
         botaoExportar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/export.png"))); // NOI18N
         botaoExportar.setText("Exportar para txt");
         botaoExportar.addActionListener(new java.awt.event.ActionListener() {
@@ -492,20 +545,28 @@ public class Simulador extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/speedometer.png"))); // NOI18N
+        jButton2.setText("Tabela SpeedUP");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panelCommitLayout = new javax.swing.GroupLayout(panelCommit);
         panelCommit.setLayout(panelCommitLayout);
         panelCommitLayout.setHorizontalGroup(
             panelCommitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelCommitLayout.createSequentialGroup()
-                .addGap(32, 32, 32)
+                .addContainerGap()
                 .addComponent(botaoMT, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(botaoExecutar)
                 .addGap(18, 18, 18)
-                .addComponent(botaoCancelar)
-                .addGap(18, 18, 18)
                 .addComponent(botaoExportar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelCommitLayout.setVerticalGroup(
             panelCommitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -513,9 +574,9 @@ public class Simulador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelCommitLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(botaoExportar)
-                    .addComponent(botaoCancelar)
                     .addComponent(botaoExecutar)
-                    .addComponent(botaoMT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(botaoMT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -629,54 +690,95 @@ public class Simulador extends javax.swing.JFrame {
      */
     private void botaoExecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExecutarActionPerformed
 
-        //Captura de dados
-        tempoRam = sliderTempoRam.getValue();
-        tempoCache = sliderTempoCache.getValue();
-        quantBlocos = Integer.parseInt(comboBlocos.getSelectedItem().toString());
-        quantPalavra = Integer.parseInt(comboPalavra.getSelectedItem().toString());
+        if (sliderTempoCache.getValue() == 0 || sliderTempoRam.getValue() == 0) {
+            JOptionPane.showMessageDialog(this, "Por favor, preecha os valores pedidos", "Cuidado", JOptionPane.ERROR_MESSAGE);
+        } else if (editorMemoryTrace.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, preecha os valores no Memory Trace", "Cuidado", JOptionPane.ERROR_MESSAGE);
+        } else {
 
-        //Mostra na área de Status
-        this.atualizarStatus("CONFIGURAÇÃO ESCOLHIDA", true);
-        this.atualizarStatus("------------------------------------------------------------------", true);
-        this.atualizarStatus("Tipo de Memoria Cache: " + tipoMemCache, true);
-        this.atualizarStatus("Tipo de Política de Substituição: " + politicaSubs, true);
-        this.atualizarStatus("Tempo de Acesso a Memória Ram: " + tempoRam, true);
-        this.atualizarStatus("Tempo de Acesso a Memória Cache: " + tempoCache, true);
-        this.atualizarStatus("Quantidade de Blocos: " + quantBlocos, true);
-        this.atualizarStatus("Tamanho do Bloco: " + quantPalavra, true);
-        this.atualizarStatus("Grau de associatividade: " + grauAssociatividade, true);
-        this.atualizarStatus("------------------------------------------------------------------", true);
-        this.atualizarStatus("MEMORY TRACE DIGITADO:", true);
-        tratarMemorytrace(editorMemoryTrace.getText());
-        this.atualizarStatus("\n------------------------------------------------------------------", true);
+            //Zerar valores para multiplas execuções
+            MemoriaCache.setHit(0);
+            MemoriaCache.setMiss(0);
+            MemoriaCache.setMissComp(0);
+            MemoriaCache.setEndereco(0);
 
-        //Com os dados capturados chama método para criação do vetor de objetos
-        criarNumBin();
+            //Captura de dados
+            tempoRam = sliderTempoRam.getValue();
+            tempoCache = sliderTempoCache.getValue();
+            quantBlocos = Integer.parseInt(comboBlocos.getSelectedItem().toString());
+            quantPalavra = Integer.parseInt(comboPalavra.getSelectedItem().toString());
 
-        //Mostra na área de status as informações das palavras do MT
-        for (NumeroBinario binario1 : binario) {
-            this.atualizarStatus(binario1.toString(), true);
-        }
+            //Mostra na área de Status
+            this.atualizarStatus("CONFIGURAÇÃO ESCOLHIDA", true);
+            this.atualizarStatus("------------------------------------------------------------------", true);
+            this.atualizarStatus("Tipo de Memoria Cache: " + tipoMemCache, true);
+            this.atualizarStatus("Tipo de Política de Substituição: " + politicaSubs, true);
+            this.atualizarStatus("Tempo de Acesso a Memória Ram: " + tempoRam, true);
+            this.atualizarStatus("Tempo de Acesso a Memória Cache: " + tempoCache, true);
+            this.atualizarStatus("Quantidade de Blocos: " + quantBlocos, true);
+            this.atualizarStatus("Tamanho do Bloco: " + quantPalavra, true);
+            this.atualizarStatus("Grau de associatividade: " + grauAssociatividade, true);
+            this.atualizarStatus("------------------------------------------------------------------", true);
+            this.atualizarStatus("MEMORY TRACE DIGITADO:", true);
+            tratarMemorytrace(editorMemoryTrace.getText());
+            this.atualizarStatus("\n------------------------------------------------------------------", true);
 
-        //cria os blocos de memória
-        criarMemoriaCache();
+            //Com os dados capturados chama método para criação do vetor de objetos
+            criarNumBin();
 
-        //Mostra na área de status as informações sobre os blocos criados
-        if (tipoMemCache.equalsIgnoreCase("AC")) {
-            for (AssociativaPorConjunto ac1 : ac) {
-                atualizarStatus(ac1.toString(), false);
-                for (Bloco bloco : ac1.bloco) {
+            //Mostra na área de status as informações das palavras do MT
+            for (NumeroBinario binario1 : binario) {
+                this.atualizarStatus(binario1.toString(), true);
+            }
+
+            //cria os blocos de memória
+            criarMemoriaCache();
+
+            //Mostra na área de status as informações sobre os blocos criados
+            if (tipoMemCache.equalsIgnoreCase("AC")) {
+                for (AssociativaPorConjunto ac1 : ac) {
+                    atualizarStatus(ac1.toString(), false);
+                    for (Bloco bloco : ac1.bloco) {
+                        this.atualizarStatus(bloco.toString(), false);
+                    }
+                }
+            } else {
+                for (Bloco bloco : blocos) {
                     this.atualizarStatus(bloco.toString(), false);
                 }
-            }
-        } else {
-            for (Bloco bloco : blocos) {
-                this.atualizarStatus(bloco.toString(), false);
-            }
-        }
 
-        //Começa a manipulação dos dados e leitura do MT para inserção nos blocos
-        iniciarLeitura();
+            }
+
+            //Começa a manipulação dos dados e leitura do MT para inserção nos blocos
+            iniciarLeitura();
+            switch (tipoMemCache) {
+                case "MD":
+                    for (Bloco bloco : blocos) {
+                        textStatus2.append("\n" + bloco.toString());
+                    }
+                    break;
+                case "TA":
+                    for (Bloco bloco : blocos) {
+                        textStatus2.append("\n" + bloco.toString());
+                    }
+                    if (politicaSubs.equalsIgnoreCase("LRU")) {
+                        textStatus2.append("\n" + MemoriaCache.getListaLRU());
+                    }
+                    break;
+                case "AC":
+                    for (AssociativaPorConjunto ac1 : ac) {
+                        for (Bloco b1 : ac1.bloco) {
+                            textStatus2.append("\n" + b1.toString());
+                        }
+                    }
+                    if (politicaSubs.equalsIgnoreCase("LRU")) {
+                        textStatus2.append("\n" + MemoriaCache.getListaLRU());
+                    }
+                    break;
+            }
+
+            tabelaSpeedUP();
+        }
     }//GEN-LAST:event_botaoExecutarActionPerformed
 
     /**
@@ -716,10 +818,6 @@ public class Simulador extends javax.swing.JFrame {
         politicaSubs = "LRU";
     }//GEN-LAST:event_radioSubsLRUActionPerformed
 
-    private void botaoCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarActionPerformed
-        limpar();
-    }//GEN-LAST:event_botaoCancelarActionPerformed
-
     private void botaoExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoExportarActionPerformed
 
         try {
@@ -752,6 +850,14 @@ public class Simulador extends javax.swing.JFrame {
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
         System.err.println(jTabbedPane1.getSelectedIndex());
     }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        SpeedUp.setVisible(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        SpeedUp.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -789,7 +895,7 @@ public class Simulador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botaoCancelar;
+    private javax.swing.JFrame SpeedUp;
     private javax.swing.JButton botaoExecutar;
     private javax.swing.JButton botaoExportar;
     private javax.swing.JButton botaoGravarMT;
@@ -800,6 +906,8 @@ public class Simulador extends javax.swing.JFrame {
     private javax.swing.JComboBox comboPalavra;
     private javax.swing.JEditorPane editorMemoryTrace;
     private javax.swing.JFrame frameMemoryTrace;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -815,6 +923,7 @@ public class Simulador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
@@ -840,6 +949,7 @@ public class Simulador extends javax.swing.JFrame {
     private javax.swing.JSlider sliderTempoCache;
     private javax.swing.JSlider sliderTempoRam;
     private javax.swing.JDialog sobre;
+    private javax.swing.JTable tabelaSpUP;
     private javax.swing.JTextArea textStatus;
     private javax.swing.JTextArea textStatus2;
     private javax.swing.ButtonGroup tiposMemoriaCache;
@@ -1000,13 +1110,11 @@ public class Simulador extends javax.swing.JFrame {
                 ac[endMemoria].bloco[0].setControleBloco(0);
                 return ac[endMemoria].bloco[0].getControleBloco();
             }
+        } else if (blocos[0].getControleBloco() < blocos.length) {
+            return blocos[0].getControleBloco();
         } else {
-            if (blocos[0].getControleBloco() < blocos.length) {
-                return blocos[0].getControleBloco();
-            } else {
-                blocos[0].setControleBloco(0);
-                return blocos[0].getControleBloco();
-            }
+            blocos[0].setControleBloco(0);
+            return blocos[0].getControleBloco();
         }
     }
 
@@ -1025,6 +1133,16 @@ public class Simulador extends javax.swing.JFrame {
         this.atualizarStatus("Arquivo salvo com sucesso!", true);
         Runtime.getRuntime().exec("explorer " + System.getProperty("user.dir"));
 
+    }
+
+    public void tabelaSpeedUP() {
+        DefaultTableModel model = (DefaultTableModel) tabelaSpUP.getModel();
+        Object[] obj = new Object[]{
+            contador, MemoriaCache.getHit(), MemoriaCache.getMiss(), MemoriaCache.getTempoMedio(tempoCache, tempoRam)
+        };
+
+        model.addRow(obj);
+        contador++;
     }
 
 }

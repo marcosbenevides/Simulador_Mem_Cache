@@ -12,12 +12,13 @@ package com.una.teste;
 public class TesteMain {
 
     public static void main(String[] args) {
-        Integer[] in = new Integer[4];
-        for (Integer in1 : in) {
-            Integer[] b = new Integer[2];
-            for (Integer b1 : b) {
-                b1 = 1;
-            }
+
+        String os = (String) System.getProperties().get("os.name");
+        if (os.contains("Windows")) {
+            System.err.println("Windows instalado!");
+        } else if (os.contains("Linux")) {
+            System.err.println("Linux instalado!");
         }
+
     }
 }

@@ -22,6 +22,22 @@ public abstract class MemoriaCache {
         return naLista;
     }
 
+    static void setHit(int i) {
+        MemoriaCache.hit = i;
+    }
+
+    static void setMiss(int i) {
+        MemoriaCache.miss = i;
+    }
+
+    static void setMissComp(int i) {
+        MemoriaCache.missComp = i;
+    }
+
+    static void setEndereco(int i) {
+        MemoriaCache.endereco = i;
+    }
+
     public MemoriaCache() {
         MemoriaCache.setEndereco();
     }
@@ -112,7 +128,7 @@ public abstract class MemoriaCache {
                 try {
                     if (listaLRU[j][i].equalsIgnoreCase(valor)) {
                         naLista = i;
-                     //   setHit();
+                        //   setHit();
                         return true;
                     }
                 } catch (NullPointerException ex) {
@@ -239,6 +255,6 @@ public abstract class MemoriaCache {
      * @return
      */
     protected static Integer getTempoMedio(Integer tempoCache, Integer tempoRam) {
-        return (((hit + miss)*tempoRam)/(hit*tempoCache)+(miss*tempoRam));
+        return (((hit + miss) * tempoRam) / ((hit * tempoCache) + (miss * tempoRam)));
     }
 }
